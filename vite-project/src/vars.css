@@ -1,0 +1,13 @@
+:root {
+  /* Colours */
+  --color-text: #e2e2e2;
+  --color-primary: #576cbc;
+  --color-secondary: #19376d;
+  --color-dark: #0b2447;
+  --color-bg: #18181B;
+
+  /* Fonts */
+  --font-roboto: "Roboto";
+  --font-roboto-slab: "Roboto Slab";
+  --font-courier: "Courier Prime"
+}

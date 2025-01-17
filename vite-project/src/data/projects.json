@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Prodspace",
+    "description": "Developed a productivity-enhancing web application using React with features like habit tracker, calendar, etc. Added elements of Gamification like streaks and friends list to maintain a 30-day user retention of 25%. Active Users from over 63 countries within two years of its lifetime.",
+    "skills": "React, Node, JSON",
+    "demo": "https://www.example.com",
+    "source": "https://www.github.com"
+  },
+  {
+    "title": "FitLit",
+    "description": "Developed a fitness and habit tracking mobile app. Provides features including calorie tracker, workout planner, and activity logger. Currently working on adding AI Image recognition to facilitate calorie tracking.",
+    "skills": "Flutter, Firebase",
+    "demo": "https://www.example.com",
+    "source": "https://www.github.com"
+  }
+]
