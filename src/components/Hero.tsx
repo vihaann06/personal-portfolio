@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
               <div className="relative w-56 h-56 md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem]">
                 <img 
                   src="/images/Group 3.png"
-                  alt="Profile Picture" 
+                  alt="Vihaan Gupta" 
                   className="w-full h-full object-cover"
                 />
                 
