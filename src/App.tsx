@@ -5,6 +5,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Experience from './components/Experience';
+import Education from './components/Education';
 
 const Portfolio = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -46,6 +47,9 @@ const Portfolio = () => {
 
       {/* Projects Section */}
       <Projects />
+
+      {/* Education Section */}
+      <Education />
 
       {/* Contact Section */}
       <Contact />

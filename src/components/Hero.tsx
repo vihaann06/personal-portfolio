@@ -42,11 +42,11 @@ const Hero: React.FC = () => {
             <div className="relative group">
               <div className="absolute"></div>
               
-              <div className="relative w-56 h-56 md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem]">
+              <div className="relative w-56 h-56 md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem] group">
                 <img 
                   src="/images/Group 3.png"
                   alt="Vihaan Gupta" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 
                 <div className="absolute top-4 right-4 w-4 h-4 bg-purple-400 rounded-full animate-ping opacity-75"></div>
