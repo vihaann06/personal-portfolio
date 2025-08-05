@@ -26,7 +26,7 @@ const Portfolio = () => {
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl transition-all duration-1000 ease-out"
+          className="absolute w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl transition-all duration-100 ease-out"
           style={{
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,

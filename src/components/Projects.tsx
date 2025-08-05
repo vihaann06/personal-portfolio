@@ -39,6 +39,13 @@ const Projects: React.FC = () => {
       live: "https://yourrecipes.com"
     },
     {
+      title: "Multi-Asset Alert System",
+      description: "Built a Python-based portfolio monitoring tool that tracked 20+ crypto and stock assets using CoinGecko and Alpha Vantage APIs, with custom Twilio SMS alerts for threshold-based notifications across multiple markets.",
+      technologies: ["Python", "Twilio API"],
+      github: "https://github.com/yourusername/multi-asset-alert-system",
+      live: "https://yourmultiassetalerts.com"
+    },
+    {
       title: "Portfolio Website",
       description: "Developed this portfolio website in React and Tailwind CSS to showcase past experiences and projects",
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
@@ -58,13 +65,6 @@ const Projects: React.FC = () => {
       technologies: ["Figma"],
       github: "https://github.com/yourusername/milkar-prototype",
       live: "https://yourmilkar.com"
-    },
-    {
-      title: "Dietary Restrictions Food Delivery App Hi-Fidelity Prototype",
-      description: "Developed a hi-fidelity prototype for a food delivery app based on user interviews to accommodate users with dietary restrictions",
-      technologies: ["Figma"],
-      github: "https://github.com/yourusername/dietary-restrictions-food-delivery-app",
-      live: "https://yourdietaryrestrictionsfooddeliveryapp.com"
     }
   ];
 
@@ -85,7 +85,7 @@ const Projects: React.FC = () => {
           </div>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 -mb-8">
           {projects.map((project, index) => (
             <motion.div 
               key={index}

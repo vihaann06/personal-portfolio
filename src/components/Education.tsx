@@ -5,16 +5,6 @@ import { motion } from 'framer-motion';
 const Education: React.FC = () => {
   const education = [
     {
-        degree: "High School Diploma",
-        school: "KC Public School",
-        location: "Jammu, India",
-        period: "2008 - 2023",
-        description: [
-          "Activities and Societies: Student Council, Debating Club, IT Club, Secretary General of KCMUN, Squash",
-        ],
-        achievements: ["GPA: 97/100"]
-    },
-    {
       degree: "Bachelor of Arts in Computer Science and Philosophy",
       school: "Harvard University",
       location: "Cambridge, MA",
@@ -24,6 +14,16 @@ const Education: React.FC = () => {
         "Activities and Societies: Executive Director of HCS Tech for Social Good, Teaching Assistant for CS175 (Computer Graphics), Digital Media Chair for Harvard College Dbeating Union, Tour Guide for Harvard Student Agencies",
       ],
       achievements: ["GPA: 3.88"]
+    },
+    {
+        degree: "High School Diploma",
+        school: "KC Public School",
+        location: "Jammu, India",
+        period: "2008 - 2023",
+        description: [
+          "Activities and Societies: Student Council, Debating Club, IT Club, Secretary General of KCMUN, Squash",
+        ],
+        achievements: ["GPA: 97/100"]
     }
   ];
 

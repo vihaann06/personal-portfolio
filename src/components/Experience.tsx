@@ -8,10 +8,22 @@ const Experience: React.FC = () => {
       title: "Software Engineering Intern",
       company: "As1 Social",
       location: "Remote",
+      period: "Jun 2025 - Aug 2025",
+      description: [
+        "Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange",
+        "Developed 16 reusable Java convenience methods to streamline offset tracking, enable offset rewind for redis caching, and prevent data loss by bringing down broker unavailability signal handling from 2 minutes to 1 second",
+        "Integrated kubeLinter into Jenkins CI pipeline to automatically scan Kubernetes configuration files on pull requests and developed custom linting rules tailored to compliance policies, detecting issues in 70% of PRs"
+      ],
+      technologies: ["Java", "Spring Kafka", "Kubernetes", "Jenkins", "Python", "Git"]
+    },
+    {
+      title: "Founding Software Engineer",
+      company: "As1 Social",
+      location: "Remote",
       period: "Mar 2025 - May 2025",
       description: [
         "Contributed to the MVP development of social media app in React Native (frontend) and PostgreSQL (backend)",
-        "Developed caption parsing and hashtag ranking for video recommendations, boosting user retention by 30% through personalised feeds based on user preferences, keyword relevance, and trend recency",
+        "Implemented caption parsing and hashtag ranking for video recommendations, boosting user retention by 30% through personalised feeds based on user preferences, keyword relevance, and trend recency",
         "Optimised caching and memory usage by over 50% via implementing video prefetching and feed pagination"
       ],
       technologies: ["React Native", "PostgreSQL", "Tailwind CSS", "Git"]
@@ -22,9 +34,9 @@ const Experience: React.FC = () => {
       location: "Delhi, India",
       period: "Jun 2024 - Aug 2024",
       description: [
-        "Developed 3wmaps, a mobile app to help users locate K-12 schools in developing countries",
-        "Designed the profile page using React to visualise school data, increasing data accessibility by 30%",
-        "Integrated a Firebase backend to fetch school-specific data like gender ratio, toilet-to-student ratio, etc, in JSON"
+        "Developed OpenEMIS mobile dashboard to help users locate and view details of schools in developing countries",
+        "Integrated OpenStreetMap with Flutter, rendering vector-based school markers and enabling spatial exploration with custom map layers, improving accessibility of education data by 30%",
+        "Focused on performance and offline usability, key for low-connectivity regions, and implemented location-based data rendering with an eye toward user privacy and lightweight geospatial UX"
       ],
       technologies: ["Flutter", "Firebase", "Dart", "Bitbucket"]
     },
@@ -131,7 +143,7 @@ const Experience: React.FC = () => {
           className="mt-8 flex justify-center"
         >
           <a
-            href="/Vihaan_Gupta_CV (7).pdf"
+            href="/VG_Resume (3).pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-10 py-3 rounded-[8px] bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-blue-400/20 hover:from-purple-400/30 hover:via-pink-400/30 hover:to-blue-400/30 text-white/70 hover:text-white transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)] flex items-center gap-2"
