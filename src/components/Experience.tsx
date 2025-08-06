@@ -1,20 +1,23 @@
 import React from 'react';
-import { ArrowUpRight, Briefcase, Calendar, MapPin } from 'lucide-react';
+import { ArrowUpRight, Briefcase, Calendar, MapPin, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Experience: React.FC = () => {
   const experiences = [
     {
       title: "Software Engineering Intern",
-      company: "As1 Social",
-      location: "Remote",
+      company: "Miami International Holdings",
+      location: "Princeton, NJ",
       period: "Jun 2025 - Aug 2025",
       description: [
         "Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange",
         "Developed 16 reusable Java convenience methods to streamline offset tracking, enable offset rewind for redis caching, and prevent data loss by bringing down broker unavailability signal handling from 2 minutes to 1 second",
         "Integrated kubeLinter into Jenkins CI pipeline to automatically scan Kubernetes configuration files on pull requests and developed custom linting rules tailored to compliance policies, detecting issues in 70% of PRs"
       ],
-      technologies: ["Java", "Spring Kafka", "Kubernetes", "Jenkins", "Python", "Git"]
+      technologies: ["Java", "Spring Kafka", "Kubernetes", "Jenkins", "Python", "Git"],
+      links: [
+        { type: "company", url: "https://www.miaxglobal.com/", icon: ExternalLink }
+      ]
     },
     {
       title: "Founding Software Engineer",
@@ -26,10 +29,13 @@ const Experience: React.FC = () => {
         "Implemented caption parsing and hashtag ranking for video recommendations, boosting user retention by 30% through personalised feeds based on user preferences, keyword relevance, and trend recency",
         "Optimised caching and memory usage by over 50% via implementing video prefetching and feed pagination"
       ],
-      technologies: ["React Native", "PostgreSQL", "Tailwind CSS", "Git"]
+      technologies: ["React Native", "PostgreSQL", "Tailwind CSS", "Git"],
+      links: [
+        { type: "company", url: "https://as1.social/", icon: ExternalLink }
+      ]
     },
     {
-      title: "Software Development Intern",
+      title: "Software Engineering Intern",
       company: "Avalon Infosys",
       location: "Delhi, India",
       period: "Jun 2024 - Aug 2024",
@@ -38,7 +44,10 @@ const Experience: React.FC = () => {
         "Integrated OpenStreetMap with Flutter, rendering vector-based school markers and enabling spatial exploration with custom map layers, improving accessibility of education data by 30%",
         "Focused on performance and offline usability, key for low-connectivity regions, and implemented location-based data rendering with an eye toward user privacy and lightweight geospatial UX"
       ],
-      technologies: ["Flutter", "Firebase", "Dart", "Bitbucket"]
+      technologies: ["Flutter", "Firebase", "Dart", "Bitbucket"],
+      links: [
+        { type: "company", url: "https://www.avaloninfosys.com/index.php/portfolio/nigeria-openemis-dashboard", icon: ExternalLink }
+      ]
     },
     {
       title: "Software Development Intern",
@@ -49,7 +58,10 @@ const Experience: React.FC = () => {
         "Worked under supervision to develop an algorithm to keep track of vacant beds for admission/discharge of patients during the pandemic, reducing emergency response time by 20%",
         "Maintained a PostgreSQL database of the oxygen availability in the COVID-19 wards and Operation Theatres",
       ],
-      technologies: ["Python", "SQL", "Git"]
+      technologies: ["Python", "SQL", "Git"],
+      links: [
+        { type: "company", url: "https://www.narayanahealth.org/hospitals/katra/shri-mata-vaishno-devi-narayana-superspeciality-hospital-katra", icon: ExternalLink }
+      ]
     },
     {
         title: "Frontend Development Intern",
@@ -60,7 +72,10 @@ const Experience: React.FC = () => {
           "Interned as a full-stack web developer and facilitated in making the website more user-friendly/easier to navigate",
           "Conducted 3 user testing rounds and feedback sessions with accessibility checks to promote equitable web design",
         ],
-        technologies: ["React", "Bootstrap", "Git"]
+        technologies: ["React", "Bootstrap", "Git"],
+        links: [
+          { type: "company", url: "https://www.tadigitalgroup.com/", icon: ExternalLink }
+        ]
       }
   ];
 
@@ -92,7 +107,7 @@ const Experience: React.FC = () => {
             >
               <div className="flex flex-col space-y-3">
                 <div className="flex items-start justify-between">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="text-2xl font-semibold text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:via-pink-400 group-hover:to-blue-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{exp.title}</h3>
                     <div className="flex items-center space-x-4 mt-1.5">
                       <div className="flex items-center text-white/70">
@@ -109,6 +124,30 @@ const Experience: React.FC = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Link Icons */}
+                  {exp.links && exp.links.length > 0 && (
+                    <div className="flex items-center space-x-2 ml-4">
+                      {exp.links.map((link, linkIndex) => {
+                        const IconComponent = link.icon;
+                        return (
+                          <a
+                            key={linkIndex}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 group/link"
+                            title="Visit Company Website"
+                          >
+                            <IconComponent 
+                              size={18} 
+                              className="text-white/70 group-hover/link:text-purple-400 transition-colors duration-300" 
+                            />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
 
                 <ul className="list-none space-y-1.5 text-white/70">
@@ -143,7 +182,7 @@ const Experience: React.FC = () => {
           className="mt-8 flex justify-center"
         >
           <a
-            href="/VG_Resume (3).pdf"
+            href="/Vihaan_Gupta_CV (12).pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-10 py-3 rounded-[8px] bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-blue-400/20 hover:from-purple-400/30 hover:via-pink-400/30 hover:to-blue-400/30 text-white/70 hover:text-white transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)] flex items-center gap-2"
