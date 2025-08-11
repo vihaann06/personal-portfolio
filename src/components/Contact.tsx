@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
@@ -68,15 +68,11 @@ const Contact: React.FC = () => {
                   Connect
                 </h3>
                 <p className="mt-2 text-white/70">
-                  Feel free to connect with me on social media or check out my work on GitHub.
+                  Feel free to connect with me on social media.
                 </p>
               </div>
 
               <div className="space-y-4">
-                <a href="https://github.com/vihaann06" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/70  transition-colors duration-300">
-                  <Github size={20} />
-                  <span>github.com/vihaann06</span>
-                </a>
                 <a href="https://www.linkedin.com/in/vihaan-gupta-1595332a7" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/70 transition-colors duration-300">
                   <Linkedin size={20} />
                   <span>linkedin.com/in/vihaangupta</span>

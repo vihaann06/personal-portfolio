@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ChevronDown, Linkedin, Mail } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
@@ -21,7 +21,6 @@ const Hero: React.FC = () => {
             
             <div className="flex space-x-4 pt-4">
               {[
-                { icon: Github, href: "https://github.com/vihaann06", text: "GitHub" },
                 { icon: Linkedin, href: "https://www.linkedin.com/in/vihaan-gupta-1595332a7", text: "LinkedIn" },
                 { icon: Mail, href: "mailto:vihaangupta@college.harvard.edu", text: "Contact" }
               ].map(({ icon: Icon, href, text }, i) => (
