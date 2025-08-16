@@ -6,7 +6,7 @@ const Navigation: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-10">
-            {['Experience', 'Projects', 'Education', 'Contact'].map((item) => (
+            {['Experience', 'Projects', 'Contact'].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}

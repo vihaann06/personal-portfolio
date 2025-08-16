@@ -5,7 +5,6 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Experience from './components/Experience';
-import Education from './components/Education';
 
 const Portfolio = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -26,7 +25,7 @@ const Portfolio = () => {
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl transition-all duration-100 ease-out"
+          className="absolute w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl transition-all duration-0 ease-out"
           style={{
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,
@@ -47,9 +46,6 @@ const Portfolio = () => {
 
       {/* Projects Section */}
       <Projects />
-
-      {/* Education Section */}
-      <Education />
 
       {/* Contact Section */}
       <Contact />

@@ -38,19 +38,29 @@ const Hero: React.FC = () => {
 
           {/* Profile Picture - Right Side */}
           <div className="flex-shrink-0 relative">
-            <div className="relative group">
-              <div className="absolute"></div>
-              
-              <div className="relative w-56 h-56 md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem] group">
-                <img 
-                  src="/images/Group 3.png"
-                  alt="Vihaan Gupta" 
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                />
+            <div className="relative group perspective-1000">
+              <div className="relative w-56 h-56 md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem] transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                {/* Front Side - Original Image */}
+                <div className="absolute inset-0 backface-hidden">
+                  <img 
+                    src="/images/Group 3.png"
+                    alt="Vihaan Gupta" 
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  
+                  <div className="absolute top-4 right-4 w-4 h-4 bg-purple-400 rounded-full animate-ping opacity-75"></div>
+                  <div className="absolute bottom-8 left-8 w-6 h-6 bg-pink-400 rounded-full animate-pulse opacity-60"></div>
+                  <div className="absolute top-1/3 left-4 w-3 h-3 bg-blue-400 rounded-full animate-bounce opacity-80"></div>
+                </div>
                 
-                <div className="absolute top-4 right-4 w-4 h-4 bg-purple-400 rounded-full animate-ping opacity-75"></div>
-                <div className="absolute bottom-8 left-8 w-6 h-6 bg-pink-400 rounded-full animate-pulse opacity-60"></div>
-                <div className="absolute top-1/3 left-4 w-3 h-3 bg-blue-400 rounded-full animate-bounce opacity-80"></div>
+                {/* Back Side - Notion Face */}
+                <div className="absolute inset-0 backface-hidden rotate-y-180">
+                  <img 
+                    src="/images/my-notion-face-transparent.png"
+                    alt="Vihaan Gupta - Notion Style" 
+                    className="w-full h-full object-cover scale-120"
+                  />
+                </div>
               </div>
             </div>
           </div>
