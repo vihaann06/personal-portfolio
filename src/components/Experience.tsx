@@ -182,7 +182,7 @@ const Experience: React.FC = () => {
           className="mt-8 flex justify-center"
         >
           <a
-            href="/Vihaan_Gupta_CV (12).pdf"
+            href="/Vihaan_Gupta_CV_Final (4).pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-10 py-3 rounded-[8px] bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-blue-400/20 hover:from-purple-400/30 hover:via-pink-400/30 hover:to-blue-400/30 text-white/70 hover:text-white transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)] flex items-center gap-2"
