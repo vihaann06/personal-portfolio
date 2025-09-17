@@ -8,7 +8,8 @@ const Projects: React.FC = () => {
       title: "Prodspace",
       description: "Developed a productivity-enhancing web application, featuring tools like a habit tracker and calendar that attract active users from over 63 countries within two years",
       technologies: ["React", "Tailwind CSS"],
-      live: "https://prodspace.app"
+      live: "https://prodspace.app",
+      github: "https://github.com/vihaann06/prodspace"
     },
     {
       title: "Privacy Loss Parameter Optimization",
@@ -17,6 +18,13 @@ const Projects: React.FC = () => {
       github: "https://github.com/vihaann06/cs208-optimiser/tree/main",
       live: "https://drive.google.com/file/d/1zGXTEXnf2FfZM-pP07fQjHhtTW0M8zHv/view?usp=sharing",
       linkType: "paper"
+    },
+    {
+      title: "Quiz Generator",
+      description: "Developed a quiz generator that tests user based on an uploaded PDF, using LLMs to generate questions and grade answers. Upon quiz completion, user is redirected to resources online based on their performance.",
+      technologies: ["Python", "Node.js", "LLM API"],
+      live: "https://cs1060-itsjackfan-hw1.vercel.app",
+      github: "https://github.com/itsjackfan/cs1060-itsjackfan-hw1"
     },
     {
       title: "Ersilia LLM PDF Extractor",
@@ -52,13 +60,6 @@ const Projects: React.FC = () => {
       description: "Developed a hi-fidelity prototype for the Saving Mothers website using Figma based on user interviews and competitor analysis",
       technologies: ["Figma"],
       live: "https://www.figma.com/proto/QfCYEngqe0SQs4dB0G1a7k/Saving-Mothers-Hi-Fi-design?node-id=43-130&starting-point-node-id=43%3A130&t=kPqpw26VuqBcPDh0-1",
-      linkType: "figma"
-    },
-    {
-      title: "Milkar Pakistan Mobile App Hi-Fidelity Prototype",
-      description: "Developed a hi-fidelity prototype for the Milkar Pakistan mobile app using Figma to include elements of gamification and social media integration",
-      technologies: ["Figma"],
-      live: "https://www.figma.com/proto/eojwdaxQu447Q1GG904SnC/MilKar-Prototypes?node-id=368-2334&p=f&t=etrl41Ms6CvZnOae-1&scaling=min-zoom&content-scaling=fixed&page-id=368%3A2333&starting-point-node-id=368%3A2334",
       linkType: "figma"
     }
   ];
