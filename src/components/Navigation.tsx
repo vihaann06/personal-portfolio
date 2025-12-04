@@ -1,20 +1,35 @@
 import React from 'react';
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+  activeTab: 'home' | 'experience' | 'projects' | 'contact';
+  setActiveTab: (tab: 'home' | 'experience' | 'projects' | 'contact') => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
+  const tabs = [
+    { id: 'home' as const, label: 'Home' },
+    { id: 'experience' as const, label: 'Experience' },
+    { id: 'projects' as const, label: 'Projects' },
+    { id: 'contact' as const, label: 'Contact' }
+  ];
+
   return (
-    <nav className="relative top-12 left-0 right-0 z-50 bottom-0">
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-10">
-            {['Experience', 'Projects', 'Contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-500 hover:text-white hover:drop-shadow-[0_0_10px_rgba(168,85,247,0.8)] transition-all duration-300 relative group text-lg font-medium"
+    <nav className="bg-transparent">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pt-4 lg:translate-x-8">
+        <div className="flex items-center h-16">
+          <div className="flex items-center gap-1 px-2 py-2 rounded-full border border-black/10 bg-white/55 backdrop-blur">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
+                  activeTab === tab.id
+                    ? 'bg-black text-white shadow-[0_10px_25px_rgba(0,0,0,0.2)]'
+                    : 'text-black/60 hover:text-black hover:bg-black/5'
+                }`}
               >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 group-hover:w-full transition-all duration-300" />
-              </a>
+                {tab.label}
+              </button>
             ))}
           </div>
         </div>

@@ -37,10 +37,10 @@ const Education: React.FC = () => {
           transition={{ duration: 0.05, delay: 0.1 }}
         >
           <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
+            <h2 className="text-4xl font-bold text-black">
               Education
             </h2>
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-400/50 via-pink-400/50 to-blue-400/50 animate-gradient-x"></div>
+            <div className="h-[1px] flex-1 bg-black/20"></div>
           </div>
         </motion.div>
         
@@ -52,22 +52,22 @@ const Education: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.05, delay: 0.1 }}
-              className="group rounded-[8px] p-5 hover:bg-white/5 hover:backdrop-blur-sm transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)]"
+              className="group rounded-sm p-5 border border-black/10 hover:border-black/30 transition-all duration-300"
             >
               <div className="flex flex-col space-y-3">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-2xl font-semibold text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:via-pink-400 group-hover:to-blue-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{edu.degree}</h3>
+                    <h3 className="text-2xl font-semibold text-black group-hover:text-black transition-all duration-300">{edu.degree}</h3>
                     <div className="flex items-center space-x-4 mt-1.5">
-                      <div className="flex items-center text-white/70">
+                      <div className="flex items-center text-black/60">
                         <GraduationCap size={16} className="mr-2" />
                         <span>{edu.school}</span>
                       </div>
-                      <div className="flex items-center text-white/70">
+                      <div className="flex items-center text-black/60">
                         <MapPin size={16} className="mr-2" />
                         <span>{edu.location}</span>
                       </div>
-                      <div className="flex items-center text-white/70">
+                      <div className="flex items-center text-black/60">
                         <Calendar size={16} className="mr-2" />
                         <span>{edu.period}</span>
                       </div>
@@ -75,7 +75,7 @@ const Education: React.FC = () => {
                   </div>
                 </div>
 
-                <ul className="list-none space-y-1.5 text-white/70">
+                <ul className="list-none space-y-1.5 text-black/60">
                   {edu.description.map((item, i) => (
                     <li key={i} className="flex">
                       <span className="mr-2">•</span>
@@ -88,7 +88,7 @@ const Education: React.FC = () => {
                   {edu.achievements.map((achievement, i) => (
                     <span 
                       key={i}
-                      className="px-3 py-1 text-sm bg-white/5 rounded-[8px] text-white/70 group-hover:bg-gradient-to-r group-hover:from-purple-400/20 group-hover:to-pink-400/20 transition-all duration-300"
+                      className="px-3 py-1 text-sm border border-black/10 rounded-sm text-black/60 group-hover:border-black/20 transition-all duration-300"
                     >
                       {achievement}
                     </span>

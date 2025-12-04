@@ -1,15 +1,21 @@
 import React from 'react';
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
     return (
-        <footer className="py-8 px-8 sm:px-12 lg:px-16 border-t border-white/10">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-400">
-            © 2025 Vihaan Gupta. Crafted with ❤️ and lots of ☕
+    <footer className="border-t border-black/10 bg-white/70 backdrop-blur">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12 py-8 flex flex-col gap-4 text-sm text-black/60">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-xs uppercase tracking-[0.5em] text-black/50">Staying monochrome</p>
+          <p className="text-xs uppercase tracking-[0.4em] text-black/50">© {year} Vihaan Gupta</p>
+        </div>
+        <p>
+          Built with curiosity, a minimalist palette, and a steady stream of espresso.
           </p>
         </div>
       </footer>
-    )
-}
+  );
+};
 
 export default Footer;

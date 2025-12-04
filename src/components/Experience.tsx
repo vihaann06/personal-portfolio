@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Briefcase, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, Calendar, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Experience: React.FC = () => {
@@ -15,9 +15,6 @@ const Experience: React.FC = () => {
         "Integrated kubeLinter into Jenkins CI pipeline to automatically scan Kubernetes configuration files on pull requests and developed custom linting rules tailored to compliance policies, detecting issues in 70% of PRs"
       ],
       technologies: ["Java", "Spring Kafka", "Kubernetes", "Jenkins", "Python", "Git"],
-      links: [
-        { type: "company", url: "https://www.miaxglobal.com/", icon: ExternalLink }
-      ]
     },
     {
       title: "Founding Software Engineer",
@@ -30,9 +27,6 @@ const Experience: React.FC = () => {
         "Optimised caching and memory usage by over 50% via implementing video prefetching and feed pagination"
       ],
       technologies: ["React Native", "PostgreSQL", "Tailwind CSS", "Git"],
-      links: [
-        { type: "company", url: "https://as1.social/", icon: ExternalLink }
-      ]
     },
     {
       title: "Software Engineering Intern",
@@ -45,9 +39,6 @@ const Experience: React.FC = () => {
         "Focused on performance and offline usability, key for low-connectivity regions, and implemented location-based data rendering with an eye toward user privacy and lightweight geospatial UX"
       ],
       technologies: ["Flutter", "Firebase", "Dart", "Bitbucket"],
-      links: [
-        { type: "company", url: "https://www.avaloninfosys.com/index.php/portfolio/nigeria-openemis-dashboard", icon: ExternalLink }
-      ]
     },
     {
       title: "Software Development Intern",
@@ -59,9 +50,6 @@ const Experience: React.FC = () => {
         "Maintained a PostgreSQL database of the oxygen availability in the COVID-19 wards and Operation Theatres",
       ],
       technologies: ["Python", "SQL", "Git"],
-      links: [
-        { type: "company", url: "https://www.narayanahealth.org/hospitals/katra/shri-mata-vaishno-devi-narayana-superspeciality-hospital-katra", icon: ExternalLink }
-      ]
     },
     {
         title: "Frontend Development Intern",
@@ -73,121 +61,97 @@ const Experience: React.FC = () => {
           "Conducted 3 user testing rounds and feedback sessions with accessibility checks to promote equitable web design",
         ],
         technologies: ["React", "Bootstrap", "Git"],
-        links: [
-          { type: "company", url: "https://www.tadigitalgroup.com/", icon: ExternalLink }
-        ]
       }
   ];
 
   return (
-    <section id="experience" className="py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
-      <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.05, delay: 0.1 }}
-    >
-        <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
-            Experience
-          </h2>
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-400/50 via-pink-400/50 to-blue-400/50 animate-gradient-x"></div>
-        </div>
+    <section id="experience" className="min-h-screen pt-10 pb-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8 pt-6"
+        >
+          <div className="flex flex-col gap-2">
+            <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Experience</p>
+            <div className="flex items-end justify-between flex-wrap gap-3">
+              <h2 className="text-3xl md:text-3xl font-semibold leading-tight">
+                Places where I learned to ship clearly under pressure.
+              </h2>
+              <div className="h-px w-16 bg-black/15" />
+            </div>
+          </div>
         </motion.div>
-        
-        <div>
+
+        <div className="space-y-8">
           {experiences.map((exp, index) => (
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+            <motion.article
+              key={exp.company + index}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.05, delay: 0.1 }}
-              className="group rounded-[8px] p-5 hover:bg-white/5 hover:backdrop-blur-sm transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)]"
+              viewport={{ once: false, margin: '-100px' }}
+              transition={{ duration: 0.6, delay: index * 0.05 }}
+              className="relative overflow-hidden rounded-[1.6rem] border border-black/10 bg-white/75 backdrop-blur px-5 py-6 sm:px-6 group"
             >
-              <div className="flex flex-col space-y-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-semibold text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:via-pink-400 group-hover:to-blue-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{exp.title}</h3>
-                    <div className="flex items-center space-x-4 mt-1.5">
-                      <div className="flex items-center text-white/70">
-                        <Briefcase size={16} className="mr-2" />
-                        <span>{exp.company}</span>
-                      </div>
-                      <div className="flex items-center text-white/70">
-                        <MapPin size={16} className="mr-2" />
-                        <span>{exp.location}</span>
-                      </div>
-                      <div className="flex items-center text-white/70">
-                        <Calendar size={16} className="mr-2" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_65%)]" />
+              <div className="space-y-5">
+                <div className="flex flex-wrap items-center gap-4 justify-between">
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-black">{exp.title}</h3>
+                    <p className="text-sm text-black/60">{exp.company}</p>
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-black/55">
+                      <div className="flex items-center gap-2">
+                        <Calendar size={12} />
                         <span>{exp.period}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin size={12} />
+                        <span>{exp.location}</span>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Link Icons */}
-                  {exp.links && exp.links.length > 0 && (
-                    <div className="flex items-center space-x-2 ml-4">
-                      {exp.links.map((link, linkIndex) => {
-                        const IconComponent = link.icon;
-                        return (
-                          <a
-                            key={linkIndex}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 group/link"
-                            title="Visit Company Website"
-                          >
-                            <IconComponent 
-                              size={18} 
-                              className="text-white/70 group-hover/link:text-purple-400 transition-colors duration-300" 
-                            />
-                          </a>
-                        );
-                      })}
-                    </div>
-                  )}
                 </div>
 
-                <ul className="list-none space-y-1.5 text-white/70">
+                <ul className="space-y-2 text-sm text-black/70">
                   {exp.description.map((item, i) => (
-                    <li key={i} className="flex">
-                      <span className="mr-2">•</span>
+                    <li key={i} className="flex gap-3">
+                      <span className="mt-1 h-1 w-1 rounded-full bg-black/50" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
 
-                <div className="flex flex-wrap gap-2 pt-1">
+                <div className="flex flex-wrap gap-2 pt-2">
                   {exp.technologies.map((tech, i) => (
-                    <span 
-                      key={i}
-                      className="px-3 py-1 text-sm bg-white/5 rounded-[8px] text-white/70 group-hover:bg-gradient-to-r group-hover:from-purple-400/20 group-hover:to-pink-400/20 transition-all duration-300"
+                    <span
+                      key={tech + i}
+                      className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.3em] border border-black/10 rounded-full text-black/60"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, delay: experiences.length * 0.1 }}
-          className="mt-8 flex justify-center"
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5, delay: experiences.length * 0.05 }}
+          className="mt-12 flex justify-center"
         >
           <a
             href="/Vihaan_Gupta_CV_Final (4).pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-10 py-3 rounded-[8px] bg-gradient-to-r from-purple-400/20 via-pink-400/20 to-blue-400/20 hover:from-purple-400/30 hover:via-pink-400/30 hover:to-blue-400/30 text-white/70 hover:text-white transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)] flex items-center gap-2"
+            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
           >
-            View My Resume <ArrowUpRight size={16} />
+            View résumé
+            <ArrowUpRight size={16} />
           </a>
         </motion.div>
       </div>

@@ -4,53 +4,57 @@ import { Mail, Phone, MapPin, Linkedin } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
-    <section id="contact" className="py-8 pb-8">
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
+    <section id="contact" className="min-h-screen pt-10 pb-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.05, delay: 0.1 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.4 }}
+          className="mb-8"
         >
-          <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
-              Contact
+          <div className="flex flex-col gap-2">
+            <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Contact</p>
+            <h2 className="text-3xl font-semibold leading-tight max-w-2xl">
+              Always open to new opportunities or chatting!
             </h2>
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-400/50 via-pink-400/50 to-blue-400/50 animate-gradient-x"></div>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.05, delay: 0.1 }}
-            className="group rounded-[8px] p-5 transition-all duration-300"
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.4 }}
+            className="rounded-[1.6rem] border border-black/10 bg-white/80 backdrop-blur px-6 py-8 space-y-6"
           >
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-semibold text-white">
-                  Get in Touch
-                </h3>
-                <p className="mt-2 text-white/70">
-                  I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-                </p>
-              </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Available for</p>
+              <p className="text-lg font-semibold">Product + infra internships · creative collabs</p>
+            </div>
 
-              <div className="space-y-4">
-                <a href="mailto:vihaangupta06@gmail.com" className="flex items-center gap-3 text-white/70  transition-colors duration-300">
-                  <Mail size={20} />
+            <p className="text-sm text-black/70 leading-relaxed">
+              I gravitate toward teams building considerate, high-leverage tools. If you&apos;re exploring
+              intentional tech, community infrastructure, or just want to debate Kierkegaard vs. Arendt,
+              I&apos;m game.
+            </p>
+
+              <div className="space-y-3">
+              <a
+                href="mailto:vihaangupta@college.harvard.edu"
+                className="flex items-center gap-3 text-black text-sm hover:text-black/80 transition-colors"
+              >
+                  <Mail size={18} />
                   <span>vihaangupta@college.harvard.edu</span>
                 </a>
-                <a href="tel:+1234567890" className="flex items-center gap-3 text-white/70 transition-colors duration-300">
-                  <Phone size={20} />
+              <a href="tel:+18578298855" className="flex items-center gap-3 text-black/70 text-sm hover:text-black transition-colors">
+                  <Phone size={18} />
                   <span>+1 (857) 829-8855</span>
                 </a>
-                <div className="flex items-center gap-3 text-white/70">
-                  <MapPin size={20} />
+              <div className="flex items-center gap-3 text-black/70 text-sm">
+                  <MapPin size={18} />
                   <span>Cambridge, MA</span>
-                </div>
               </div>
             </div>
           </motion.div>
@@ -58,26 +62,37 @@ const Contact: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.05, delay: 0.2 }}
-            className="group rounded-[8px] p-5 transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0)]"
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="space-y-5"
           >
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-semibold text-white">
-                  Connect
-                </h3>
-                <p className="mt-2 text-white/70">
-                  Feel free to connect with me on social media.
+            <div className="rounded-[1.6rem] border border-black/10 bg-white/80 backdrop-blur px-6 py-6 space-y-5">
+              <div className="space-y-2">
+                <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Next conversation</p>
+                <h3 className="text-base font-semibold">Tell me what you&apos;re building.</h3>
+                <p className="text-sm text-black/65">
+                  Drop a note with a problem statement, a figma link, or a story—promise to respond.
                 </p>
               </div>
+              <a
+                href="mailto:vihaangupta@college.harvard.edu?subject=Let%27s%20Collaborate"
+                className="inline-flex items-center justify-center rounded-full border border-black/15 px-5 py-2.5 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
+              >
+                Email Vihaan
+              </a>
+              </div>
 
-              <div className="space-y-4">
-                <a href="https://www.linkedin.com/in/vihaan-gupta-1595332a7" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/70 transition-colors duration-300">
-                  <Linkedin size={20} />
+            <div className="rounded-[1.6rem] border border-black/10 bg-white/75 backdrop-blur px-6 py-5 space-y-2">
+              <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Elsewhere</p>
+              <a
+                href="https://www.linkedin.com/in/vihaan-gupta-1595332a7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-black/70 text-sm hover:text-black transition-colors"
+              >
+                  <Linkedin size={18} />
                   <span>linkedin.com/in/vihaangupta</span>
                 </a>
-              </div>
             </div>
           </motion.div>
         </div>

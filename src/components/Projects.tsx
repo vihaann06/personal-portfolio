@@ -65,46 +65,60 @@ const Projects: React.FC = () => {
   ];
 
   return (
-    <section id="projects" className="py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 lg:px-12">
+    <section id="projects" className="min-h-screen pt-10 pb-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.05, delay: 0.1 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.4 }}
+          className="mb-8"
         >
-          <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
-              Projects
+          <div className="flex flex-col gap-2">
+            <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Projects</p>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="text-3xl font-semibold leading-tight">
+                Experiments, shipped products, and research tools.
             </h2>
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-purple-400/50 via-pink-400/50 to-blue-400/50 animate-gradient-x"></div>
+              <span className="text-xs text-black/50">09 selected works</span>
+            </div>
           </div>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 -mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {projects.map((project, index) => (
-            <motion.div 
-              key={index}
+            <motion.article
+              key={project.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.05, delay: 0.1 }}
-              className="group rounded-[8px] p-5 hover:bg-white/5 hover:backdrop-blur-sm transition-all duration-300 shadow-[0_4px_6px_-1px_rgba(0,0,0,0)] hover:shadow-[0_10px_15px_-3px_rgba(0,0,0,0.2)] relative"
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.4, delay: index * 0.03 }}
+              className="relative rounded-[1.6rem] border border-black/10 bg-white/75 backdrop-blur px-5 py-6"
             >
-              {/* Link Icons */}
-              <div className="absolute top-3 right-3 flex items-center space-x-2">
+              <h3 className="text-xl font-semibold text-black">{project.title}</h3>
+              <p className="mt-2 text-sm text-black/65">{project.description}</p>
+
+              <div className="flex flex-wrap gap-2 pt-4">
+                {project.technologies.map((tech, i) => (
+                  <span 
+                    key={`${project.title}-${tech}-${i}`}
+                    className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.35em] border border-black/10 rounded-full text-black/60"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex gap-2 pt-4">
                 {project.github && (
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 group/link"
+                    className="p-1.5 rounded-full border border-black/10 hover:border-black/30 transition-all duration-300"
                     title="View on GitHub"
                   >
-                    <Github 
-                      size={16} 
-                      className="text-white/70 group-hover/link:text-purple-400 transition-colors duration-300" 
-                    />
+                    <Github size={14} className="text-black/60" />
                   </a>
                 )}
                 {project.live && (
@@ -112,47 +126,26 @@ const Projects: React.FC = () => {
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300 group/link"
-                    title={project.linkType === "paper" ? "View Paper" : project.linkType === "figma" ? "View Figma Prototype" : "View Live Demo"}
+                    className="p-1.5 rounded-full border border-black/10 hover:border-black/30 transition-all duration-300"
+                    title={
+                      project.linkType === 'paper'
+                        ? 'View paper'
+                        : project.linkType === 'figma'
+                        ? 'View Figma prototype'
+                        : 'View live demo'
+                    }
                   >
-                    {project.linkType === "paper" ? (
-                      <FileText 
-                        size={16} 
-                        className="text-white/70 group-hover/link:text-purple-400 transition-colors duration-300" 
-                      />
-                    ) : project.linkType === "figma" ? (
-                      <Figma 
-                        size={16} 
-                        className="text-white/70 group-hover/link:text-purple-400 transition-colors duration-300" 
-                      />
+                    {project.linkType === 'paper' ? (
+                      <FileText size={14} className="text-black/60" />
+                    ) : project.linkType === 'figma' ? (
+                      <Figma size={14} className="text-black/60" />
                     ) : (
-                      <ExternalLink 
-                        size={16} 
-                        className="text-white/70 group-hover/link:text-purple-400 transition-colors duration-300" 
-                      />
+                      <ExternalLink size={14} className="text-black/60" />
                     )}
                   </a>
                 )}
               </div>
-
-              <div className="flex flex-col space-y-3">
-                <div>
-                  <h3 className="text-2xl font-semibold text-white group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:via-pink-400 group-hover:to-blue-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 pr-16">{project.title}</h3>
-                  <p className="mt-2 text-white/70">{project.description}</p>
-                </div>
-
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {project.technologies.map((tech, i) => (
-                    <span 
-                      key={i}
-                      className="px-3 py-1 text-sm bg-white/5 rounded-[8px] text-white/70 group-hover:bg-gradient-to-r group-hover:from-purple-400/20 group-hover:to-pink-400/20 transition-all duration-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
