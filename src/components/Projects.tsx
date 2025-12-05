@@ -5,9 +5,29 @@ import { Github, ExternalLink, FileText, Figma } from 'lucide-react';
 const Projects: React.FC = () => {
   const projects = [
     {
+      title: "Lumi.ai",
+      description: "An AI-powered PDF workspace that lets users highlight any passage and instantly generate context-aware explanations, abstractive summaries, and properly formatted citations from the selected text.",
+      technologies: ["React", "Supabase", "Tailwind CSS", "OpenAI API"],
+      live: "https://ai-reader-two.vercel.app/",
+      github: "https://github.com/vihaann06/AI-reader"
+    },
+    {
+      title: "Graphene",
+      description: "A visualisation tool that lets users discover research papers in a given field by clustering them based on citations, author names, and keywords.",
+      technologies: ["D3.js", "Next.js", "Tailwind CSS", "Gemini API", "Firebase"],
+      live: "https://graph-project-theta.vercel.app/",
+      github: "https://github.com/cs1060f25/graph-project"
+    },
+    {
+      title: "COMPASS",
+      description: "A context-aware privacy tool that lets users define their privacy preferences for Software Engnineering environments and generate a custom config file based on their preferences.",
+      technologies: ["Next.js", "TypeScript", "OpenAI API", "Firebase"],
+      github: "https://github.com/Tapiocaba/contextual-llm-privacy"
+    },
+    {
       title: "Prodspace",
       description: "Developed a productivity-enhancing web application, featuring tools like a habit tracker and calendar that attract active users from over 63 countries within two years",
-      technologies: ["React", "Tailwind CSS"],
+      technologies: ["React", "Tailwind CSS", "Supabase"],
       live: "https://prodspace.app",
       github: "https://github.com/vihaann06/prodspace"
     },
@@ -50,18 +70,6 @@ const Projects: React.FC = () => {
       description: "Built a Python-based portfolio monitoring tool that tracked 20+ crypto and stock assets using CoinGecko and Alpha Vantage APIs, with custom Twilio SMS alerts for threshold-based notifications across multiple markets.",
       technologies: ["Python", "Twilio API"],
     },
-    {
-      title: "Portfolio Website",
-      description: "Developed this portfolio website in React and Tailwind CSS to showcase past experiences and projects",
-      technologies: ["React", "Tailwind CSS", "Framer Motion"],
-    },
-    {
-      title: "Saving Mothers Website Hi-Fidelity Prototype",
-      description: "Developed a hi-fidelity prototype for the Saving Mothers website using Figma based on user interviews and competitor analysis",
-      technologies: ["Figma"],
-      live: "https://www.figma.com/proto/QfCYEngqe0SQs4dB0G1a7k/Saving-Mothers-Hi-Fi-design?node-id=43-130&starting-point-node-id=43%3A130&t=kPqpw26VuqBcPDh0-1",
-      linkType: "figma"
-    }
   ];
 
   return (
@@ -80,7 +88,7 @@ const Projects: React.FC = () => {
               <h2 className="text-3xl font-semibold leading-tight">
                 Experiments, shipped products, and research tools.
             </h2>
-              <span className="text-xs text-black/50">09 selected works</span>
+              <span className="text-xs text-black/50">10 selected works</span>
             </div>
           </div>
         </motion.div>
