@@ -25,21 +25,21 @@ const Projects: React.FC = () => {
       github: "https://github.com/Tapiocaba/contextual-llm-privacy"
     },
     {
-      title: "Reinforcement Learning for Inventory Control",
-      description: "Implemented a tabular Q-learning agent for a finite-horizon inventory control problem, learning a near–base-stock policy through interaction alone. Compared against canonical inventory heuristics and stabilized training for longer horizons using adaptive learning rates.",
-      technologies: ["React", "Supabase", "Tailwind CSS", "OpenAI API"],
+      title: "RL for Inventory Control",
+      description: "Implemented a tabular Q-learning agent for a finite-horizon inventory control problem, learning a near base-stock policy through interaction alone.",
+      technologies: ["Reinforcement Learning (Q-learning)", "Markov Decision Processes", "Python"],
       github: "https://github.com/vihaann06/inventory-prediction"
     },
     {
       title: "Prodspace",
-      description: "Developed a productivity-enhancing web application, featuring tools like a habit tracker and calendar that attract active users from over 63 countries within two years",
+      description: "Developed a productivity-enhancing web application, featuring tools like a habit tracker and calendar that attract active users from over 63 countries within two years.",
       technologies: ["React", "Tailwind CSS", "Supabase"],
       live: "https://prodspace.app",
       github: "https://github.com/vihaann06/prodspace"
     },
     {
       title: "Privacy Loss Parameter Optimization",
-      description: "Modeled the theoretical privacy-utility trade-off for individual privacy preferences and developed a Flask-based web application to optimize the privacy loss parameter",
+      description: "Modeled the theoretical privacy-utility trade-off for individual privacy preferences and developed a Flask-based web application to optimize the privacy loss parameter.",
       technologies: ["Python", "Flask"],
       github: "https://github.com/vihaann06/cs208-optimiser/tree/main",
       live: "https://drive.google.com/file/d/1zGXTEXnf2FfZM-pP07fQjHhtTW0M8zHv/view?usp=sharing",
@@ -54,20 +54,20 @@ const Projects: React.FC = () => {
     },
     {
       title: "Ersilia LLM PDF Extractor",
-      description: "Developed a Python-based parser tool that extracts desired metadata from research papers using LLMs to help train Machine Learning models",
+      description: "Developed a Python-based parser tool that extracts desired metadata from research papers using LLMs to help train Machine Learning models.",
       technologies: ["Python", "LLM API"],
       github: "https://github.com/ersilia-os/ersilia/blob/master/.github/scripts/summarize_publication_with_llm.py",
     },
     {
       title: "Random Philosophy Quote Generator",
-      description: "Developed a Flask-based web application that generates a random philosophy quote by parsing the goodreads philosophy quotes website from over 3000 quotes",
+      description: "Developed a Flask-based web application that generates a random philosophy quote by parsing the goodreads philosophy quotes website from over 3000 quotes.",
       technologies: ["Flask", "BeautifulSoup", "CSS"],
       github: "https://github.com/vihaann06/Random-Philosopy-Quote",
       live: "https://www.randomphilosophyquote.com/"
     },
     {
       title: "Fantasy World",
-      description: "Built a Minecraft-style voxel engine in Unity with C#, featuring chunk-based world generation, real-time terrain modification, and optimized mesh rendering for performance and scalability",
+      description: "Built a Minecraft-style voxel engine in Unity with C#, featuring chunk-based world generation, real-time terrain modification, and optimized mesh rendering for performance and scalability.",
       technologies: ["Unity", "C#", "Binary I/O"],
       github: "https://github.com/vihaann06/fantasyworld",
     },
@@ -94,7 +94,6 @@ const Projects: React.FC = () => {
               <h2 className="text-3xl font-semibold leading-tight">
                 Experiments, shipped products, and research tools.
             </h2>
-              <span className="text-xs text-black/50">10 selected works</span>
             </div>
           </div>
         </motion.div>

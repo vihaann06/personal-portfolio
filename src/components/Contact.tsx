@@ -32,7 +32,7 @@ const Contact: React.FC = () => {
             <div className="flex flex-col gap-1">
               <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Available for</p>
               <p className="text-lg font-semibold">Product + infra internships · creative collabs</p>
-            </div>
+              </div>
 
             <p className="text-sm text-black/70 leading-relaxed">
               I gravitate toward teams building considerate, high-leverage tools. If you&apos;re exploring

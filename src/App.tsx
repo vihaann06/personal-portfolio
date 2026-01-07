@@ -20,7 +20,7 @@ const Portfolio = () => {
 
       <main className="relative">
       {activeTab === 'home' && (
-          <div className="h-[calc(100vh-5.5rem)] overflow-hidden">
+          <div className="h-[calc(100vh-6.3rem)] overflow-hidden">
           <Hero />
         </div>
       )}

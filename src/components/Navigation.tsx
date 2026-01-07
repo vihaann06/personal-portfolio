@@ -14,8 +14,8 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <nav className="bg-transparent">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pt-4 lg:translate-x-8">
+    <nav className="bg-transparent mt-5">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 pt-4 lg:translate-x-16">
         <div className="flex items-center h-16">
           <div className="flex items-center gap-1 px-2 py-2 rounded-full border border-black/10 bg-white/55 backdrop-blur">
             {tabs.map((tab) => (
