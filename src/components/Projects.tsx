@@ -25,6 +25,12 @@ const Projects: React.FC = () => {
       github: "https://github.com/Tapiocaba/contextual-llm-privacy"
     },
     {
+      title: "Reinforcement Learning for Inventory Control",
+      description: "Implemented a tabular Q-learning agent for a finite-horizon inventory control problem, learning a near–base-stock policy through interaction alone. Compared against canonical inventory heuristics and stabilized training for longer horizons using adaptive learning rates.",
+      technologies: ["React", "Supabase", "Tailwind CSS", "OpenAI API"],
+      github: "https://github.com/vihaann06/inventory-prediction"
+    },
+    {
       title: "Prodspace",
       description: "Developed a productivity-enhancing web application, featuring tools like a habit tracker and calendar that attract active users from over 63 countries within two years",
       technologies: ["React", "Tailwind CSS", "Supabase"],
