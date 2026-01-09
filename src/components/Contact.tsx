@@ -15,6 +15,7 @@ const Contact: React.FC = () => {
         >
           <div className="flex flex-col gap-2">
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Contact</p>
+            <div className="h-px w-full bg-black/10" />
             <h2 className="text-3xl font-semibold leading-tight max-w-2xl">
               Always open to new opportunities or chatting!
             </h2>

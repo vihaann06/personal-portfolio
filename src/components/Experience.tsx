@@ -75,12 +75,10 @@ const Experience: React.FC = () => {
         >
           <div className="flex flex-col gap-2">
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Experience</p>
-            <div className="flex items-end justify-between flex-wrap gap-3">
-              <h2 className="text-3xl md:text-3xl font-semibold leading-tight">
-                Places where I learned to ship clearly under pressure.
-              </h2>
-              <div className="h-px w-16 bg-black/15" />
-            </div>
+            <div className="h-px w-full bg-black/10" />
+            <h2 className="text-3xl md:text-3xl font-semibold leading-tight">
+              Places where I learned to ship clearly under pressure.
+            </h2>
           </div>
         </motion.div>
 

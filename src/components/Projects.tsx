@@ -90,11 +90,10 @@ const Projects: React.FC = () => {
         >
           <div className="flex flex-col gap-2">
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Projects</p>
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <h2 className="text-3xl font-semibold leading-tight">
-                Experiments, shipped products, and research tools.
+            <div className="h-px w-full bg-black/10" />
+            <h2 className="text-3xl font-semibold leading-tight">
+              Experiments, shipped products, and research tools.
             </h2>
-            </div>
           </div>
         </motion.div>
         
