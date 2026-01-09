@@ -98,7 +98,7 @@ const Projects: React.FC = () => {
           </div>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
@@ -106,7 +106,7 @@ const Projects: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.4, delay: index * 0.03 }}
-              className="relative rounded-[1.6rem] border border-black/10 bg-white/75 backdrop-blur px-5 py-6"
+              className="relative rounded-xl border border-black/15 bg-white/80 backdrop-blur px-5 py-6"
             >
               <h3 className="text-xl font-semibold text-black">{project.title}</h3>
               <p className="mt-2 text-sm text-black/65">{project.description}</p>
@@ -115,7 +115,7 @@ const Projects: React.FC = () => {
                 {project.technologies.map((tech, i) => (
                   <span 
                     key={`${project.title}-${tech}-${i}`}
-                    className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.35em] border border-black/10 rounded-full text-black/60"
+                    className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.35em] border border-black/15 rounded-md text-black/60"
                   >
                     {tech}
                   </span>
@@ -128,7 +128,7 @@ const Projects: React.FC = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-1.5 rounded-full border border-black/10 hover:border-black/30 transition-all duration-300"
+                    className="p-1.5 border border-black/15 rounded-md hover:border-black/30 transition-all duration-300"
                     title="View on GitHub"
                   >
                     <Github size={14} className="text-black/60" />
@@ -139,7 +139,7 @@ const Projects: React.FC = () => {
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-1.5 rounded-full border border-black/10 hover:border-black/30 transition-all duration-300"
+                    className="p-1.5 border border-black/15 rounded-md hover:border-black/30 transition-all duration-300"
                     title={
                       project.linkType === 'paper'
                         ? 'View paper'

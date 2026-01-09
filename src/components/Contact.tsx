@@ -21,13 +21,13 @@ const Contact: React.FC = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-5">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.4 }}
-            className="rounded-[1.6rem] border border-black/10 bg-white/80 backdrop-blur px-6 py-8 space-y-6"
+            className="rounded-xl border border-black/15 bg-white/80 backdrop-blur px-6 py-8 space-y-6"
           >
             <div className="flex flex-col gap-1">
               <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Available for</p>
@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="space-y-5"
           >
-            <div className="rounded-[1.6rem] border border-black/10 bg-white/80 backdrop-blur px-6 py-6 space-y-5">
+            <div className="rounded-xl border border-black/15 bg-white/80 backdrop-blur px-6 py-6 space-y-5">
               <div className="space-y-2">
                 <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Next conversation</p>
                 <h3 className="text-base font-semibold">Tell me what you&apos;re building.</h3>
@@ -76,13 +76,13 @@ const Contact: React.FC = () => {
               </div>
               <a
                 href="mailto:vihaangupta@college.harvard.edu?subject=Let%27s%20Collaborate"
-                className="inline-flex items-center justify-center rounded-full border border-black/15 px-5 py-2.5 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
+                className="inline-flex items-center justify-center border border-black/15 rounded-md px-5 py-2.5 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
               >
                 Email Vihaan
               </a>
               </div>
 
-            <div className="rounded-[1.6rem] border border-black/10 bg-white/75 backdrop-blur px-6 py-5 space-y-2">
+            <div className="rounded-xl border border-black/15 bg-white/75 backdrop-blur px-6 py-5 space-y-2">
               <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Elsewhere</p>
               <a
                 href="https://www.linkedin.com/in/vihaan-gupta-1595332a7"

@@ -92,7 +92,7 @@ const Experience: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: '-100px' }}
               transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="relative overflow-hidden rounded-[1.6rem] border border-black/10 bg-white/75 backdrop-blur px-5 py-6 sm:px-6 group"
+              className="relative overflow-hidden rounded-xl border border-black/15 bg-white/80 backdrop-blur px-5 py-6 sm:px-6 group"
             >
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_65%)]" />
               <div className="space-y-5">
@@ -126,7 +126,7 @@ const Experience: React.FC = () => {
                   {exp.technologies.map((tech, i) => (
                     <span
                       key={tech + i}
-                      className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.3em] border border-black/10 rounded-full text-black/60"
+                      className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.3em] border border-black/15 rounded-md text-black/60"
                     >
                       {tech}
                     </span>
@@ -148,7 +148,7 @@ const Experience: React.FC = () => {
             href="/Vihaan_Gupta_CV_Final (4).pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-black/15 px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
+            className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
           >
             View résumé
             <ArrowUpRight size={16} />

@@ -55,7 +55,7 @@ const Hero: React.FC = () => {
                 Building meaningful systems for messy, human contexts.
                 </h1>
               <p className="text-sm md:text-base text-black/70 leading-relaxed">
-                Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. I'm interested in studying the intersection of technology and society. Currently, I'm serving as the Executive Director of HCS Tech for Social Good, and a TF for CS 1200 (Data Structures and Algorithms).
+                Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. I'm interested in studying the intersection of technology and society. Currently, I'm serving as a TF for CS 1200 (Data Structures and Algorithms) and working as a founding engineer at a Stealth Startup.
                 Feel free to reach out if you'd like to chat or{' '}
                 <button
                   onClick={() => setIsModalOpen(true)}
@@ -69,10 +69,10 @@ const Hero: React.FC = () => {
                   { icon: Linkedin, href: 'https://www.linkedin.com/in/vihaan-gupta-1595332a7', text: 'LinkedIn' },
                   { icon: Mail, href: 'mailto:vihaangupta@college.harvard.edu', text: 'Email' }
                 ].map(({ icon: Icon, href, text }) => (
-                <a
+                  <a
                     key={text}
                   href={href}
-                    className="flex items-center gap-2 px-4 py-2.5 border border-black/15 rounded-full bg-white/80 backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-black/40 text-xs md:text-sm"
+                    className="flex items-center gap-2 px-4 py-2.5 border border-black/20 bg-white/80 backdrop-blur rounded-md transition-all duration-300 hover:-translate-y-0.5 hover:border-black/40 text-xs md:text-sm"
                 >
                     <Icon size={16} className="text-black/70" />
                     <span className="font-medium">{text}</span>
