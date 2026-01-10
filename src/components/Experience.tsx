@@ -143,7 +143,7 @@ const Experience: React.FC = () => {
           className="mt-12 flex justify-center"
         >
           <a
-            href="/Vihaan_Gupta_CV_Final (4).pdf"
+            href="/Vihaan_Gupta_Resume (4).pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
