@@ -55,7 +55,16 @@ const Hero: React.FC = () => {
                 Building meaningful systems for messy, human contexts.
                 </h1>
               <p className="text-sm md:text-base text-black/70 leading-relaxed">
-                Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. I'm interested in studying the intersection of technology and society. Currently, I'm serving as a TF for CS 1200 (Data Structures and Algorithms) and working as a founding engineer at a Stealth Startup.
+                Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. I'm interested in studying the intersection of technology and society. Currently, I'm serving as a TF for CS 1200 (Data Structures and Algorithms) and working as a HCI researcher @{' '}
+                <a
+                  href="https://glassmanlab.seas.harvard.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-4 decoration-black/30 hover:decoration-black transition-colors duration-200"
+                >
+                  Variation Lab
+                </a>
+                .
                 Feel free to reach out if you'd like to chat or{' '}
                 <button
                   onClick={() => setIsModalOpen(true)}
