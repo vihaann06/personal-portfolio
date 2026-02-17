@@ -5,6 +5,18 @@ import { motion } from 'framer-motion';
 const Experience: React.FC = () => {
   const experiences = [
     {
+      title: "Founding Software Engineer",
+      company: "Stealth Startup",
+      location: "Remote",
+      period: "Nov 2025 - Jan 2026",
+      description: [
+        "Built the MVP of RevCenter, an AI voice agent platform for home service businesses, integrating ElevenLabs and Twilio to automate inbound/outbound calls, with <2s average response latency and 95%+ structured lead capture accuracy.",
+        "Architected a multi-tenant backend using Next.js and Supabase (Postgres + RLS) with secure HMAC-verified webhook ingestion to sync real-time call transcripts and outcomes into an internal CRM.",
+        "Implemented Google Calendar scheduling, SMS confirmations, and a live dashboard, enabling end-to-end call-to-appointment workflows in under 60 seconds."
+      ],
+      technologies: ["Node.js", "Supabase (RLS)", "Webhook Architecture (HMAC)", "REST APIs", "ElevenLabs"],
+    },
+    {
       title: "Software Engineering Intern",
       company: "Miami International Holdings",
       location: "Princeton, NJ",
