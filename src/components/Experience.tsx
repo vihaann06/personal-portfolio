@@ -1,89 +1,297 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Calendar, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+
+const easeOut = [0.16, 1, 0.3, 1] as const;
+
+type ExperienceEntry = {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  description: string[];
+  technologies: string[];
+};
+
+function timelineItemMotionProps(
+  reduced: boolean,
+  stagger: number,
+  viewport: { once: boolean; margin: string; amount?: number },
+) {
+  if (reduced) {
+    return { initial: false as const, viewport };
+  }
+  return {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport,
+    transition: { duration: 0.55, ease: easeOut, delay: stagger },
+  };
+}
+
+function usePrefersHover() {
+  const [hoverCapable, setHoverCapable] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover)');
+    const update = () => setHoverCapable(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  return hoverCapable;
+}
+
+function ExperienceCardBody({
+  exp,
+  expanded,
+  reducedMotion,
+}: {
+  exp: ExperienceEntry;
+  expanded: boolean;
+  reducedMotion: boolean;
+}) {
+  return (
+    <div className="relative">
+      <div className="space-y-2">
+        <h3 className="text-xl font-semibold text-black">{exp.title}</h3>
+        <p className="text-sm text-black/60">{exp.company}</p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-black/55">
+          <div className="flex items-center gap-2">
+            <Calendar size={12} className="shrink-0 opacity-70" aria-hidden />
+            <span>{exp.period}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin size={12} className="shrink-0 opacity-70" aria-hidden />
+            <span>{exp.location}</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`grid ${expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} ${reducedMotion ? '' : 'transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]'}`}
+        aria-hidden={!expanded}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <div
+            className={`space-y-5 border-t border-black/10 pt-5 mt-5 ${reducedMotion ? '' : `transition-opacity duration-300 ease-out ${expanded ? 'opacity-100 delay-100' : 'opacity-0'}`}`}
+          >
+            <ul className="space-y-2 text-sm text-black/70">
+              {exp.description.map((item, i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-black/45" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-wrap gap-2">
+              {exp.technologies.map((tech, i) => (
+                <span
+                  key={tech + i}
+                  className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.3em] border border-black/15 rounded-md text-black/60 transition-colors duration-200 ease-out hover:border-black/25"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function articleShellClassName(extra?: string) {
+  return [
+    'relative overflow-hidden rounded-xl border border-black/15 bg-white/80 backdrop-blur px-5 py-5 sm:px-6 sm:py-6 shadow-sm shadow-black/[0.02]',
+    'transition-[box-shadow,border-color] duration-300 ease-out hover:border-black/25 hover:shadow-md hover:shadow-black/[0.04]',
+    'outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f7f3]',
+    'group/card',
+    extra ?? '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+}
+
+function ExperienceTimelineRow({
+  exp,
+  index,
+  reducedMotion,
+  hoverCapable,
+}: {
+  exp: ExperienceEntry;
+  index: number;
+  reducedMotion: boolean;
+  hoverCapable: boolean;
+}) {
+  const articleRef = useRef<HTMLElement>(null);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [touchOpen, setTouchOpen] = useState(false);
+
+  const expanded = hoverCapable ? hovered || focused : touchOpen;
+
+  const onBlur = useCallback((e: React.FocusEvent<HTMLElement>) => {
+    const next = e.relatedTarget as Node | null;
+    if (next && e.currentTarget.contains(next)) return;
+    setFocused(false);
+  }, []);
+
+  useEffect(() => {
+    if (hoverCapable || !touchOpen) return;
+
+    const onDocPointer = (ev: PointerEvent) => {
+      const el = articleRef.current;
+      if (el && !el.contains(ev.target as Node)) setTouchOpen(false);
+    };
+
+    document.addEventListener('pointerdown', onDocPointer, true);
+    return () => document.removeEventListener('pointerdown', onDocPointer, true);
+  }, [hoverCapable, touchOpen]);
+
+  const isLeft = index % 2 === 0;
+  const stagger = reducedMotion ? 0 : Math.min(index * 0.06, 0.24);
+
+  return (
+    <li className="relative grid grid-cols-[auto_1fr] gap-x-4 items-start pb-12 md:grid-cols-[1fr_auto_1fr] md:gap-x-10 md:pb-16 last:pb-8 md:last:pb-8">
+      {/* Dot centered on the global timeline rail (see parent wrapper) */}
+      <div className="relative z-[2] col-start-1 row-start-1 flex w-5 shrink-0 justify-center md:col-start-2 md:w-10">
+        <span
+          className="relative z-[3] mt-1.5 size-2.5 shrink-0 rounded-full border-2 border-black/25 bg-[#f8f7f3] shadow-[0_0_0_3px_#f8f7f3] ring-1 ring-black/[0.06] md:mt-7 md:size-3 md:shadow-[0_0_0_5px_#f8f7f3]"
+          aria-hidden
+        />
+      </div>
+
+      <motion.article
+        ref={articleRef}
+        tabIndex={0}
+        role="article"
+        aria-label={`${exp.title} at ${exp.company}`}
+        aria-expanded={expanded}
+        onMouseEnter={() => hoverCapable && setHovered(true)}
+        onMouseLeave={() => hoverCapable && setHovered(false)}
+        onFocus={() => setFocused(true)}
+        onBlur={onBlur}
+        onClick={() => {
+          if (!hoverCapable) setTouchOpen((v) => !v);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape' && expanded) {
+            e.stopPropagation();
+            setHovered(false);
+            setFocused(false);
+            setTouchOpen(false);
+            articleRef.current?.blur();
+          }
+        }}
+        {...timelineItemMotionProps(reducedMotion, stagger, {
+          once: true,
+          margin: '-12% 0px -8% 0px',
+          amount: 0.2,
+        })}
+        className={articleShellClassName(
+          [
+            'col-start-2 row-start-1 min-w-0 w-full max-w-lg cursor-default',
+            isLeft
+              ? 'md:col-start-1 md:justify-self-end md:origin-right'
+              : 'md:col-start-3 md:justify-self-start md:origin-left',
+          ].join(' '),
+        )}
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-out group-hover/card:opacity-100 bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_65%)]" />
+        <ExperienceCardBody exp={exp} expanded={expanded} reducedMotion={reducedMotion} />
+      </motion.article>
+    </li>
+  );
+}
 
 const Experience: React.FC = () => {
-  const experiences = [
+  const reducedMotion = useReducedMotion() === true;
+  const hoverCapable = usePrefersHover();
+
+  const experiences: ExperienceEntry[] = [
     {
-      title: "Founding Software Engineer",
-      company: "Stealth Startup",
-      location: "Remote",
-      period: "Nov 2025 - Jan 2026",
+      title: 'Founding Software Engineer',
+      company: 'Stealth Startup',
+      location: 'Remote',
+      period: 'Nov 2025 - Jan 2026',
       description: [
-        "Built the MVP of RevCenter, an AI voice agent platform for home service businesses, integrating ElevenLabs and Twilio to automate inbound/outbound calls, with <2s average response latency and 95%+ structured lead capture accuracy.",
-        "Architected a multi-tenant backend using Next.js and Supabase (Postgres + RLS) with secure HMAC-verified webhook ingestion to sync real-time call transcripts and outcomes into an internal CRM.",
-        "Implemented Google Calendar scheduling, SMS confirmations, and a live dashboard, enabling end-to-end call-to-appointment workflows in under 60 seconds."
+        'Built the MVP of RevCenter, an AI voice agent platform for home service businesses, integrating ElevenLabs and Twilio to automate inbound/outbound calls, with <2s average response latency and 95%+ structured lead capture accuracy.',
+        'Architected a multi-tenant backend using Next.js and Supabase (Postgres + RLS) with secure HMAC-verified webhook ingestion to sync real-time call transcripts and outcomes into an internal CRM.',
+        'Implemented Google Calendar scheduling, SMS confirmations, and a live dashboard, enabling end-to-end call-to-appointment workflows in under 60 seconds.',
       ],
-      technologies: ["Node.js", "Supabase (RLS)", "Webhook Architecture (HMAC)", "REST APIs", "ElevenLabs"],
+      technologies: ['Node.js', 'Supabase (RLS)', 'Webhook Architecture (HMAC)', 'REST APIs', 'ElevenLabs'],
     },
     {
-      title: "Software Engineering Intern",
-      company: "Miami International Holdings",
-      location: "Princeton, NJ",
-      period: "Jun 2025 - Aug 2025",
+      title: 'Software Engineering Intern',
+      company: 'Miami International Holdings',
+      location: 'Princeton, NJ',
+      period: 'Jun 2025 - Aug 2025',
       description: [
-        "Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange",
-        "Developed 16 reusable Java convenience methods to streamline offset tracking, enable offset rewind for redis caching, and prevent data loss by bringing down broker unavailability signal handling from 2 minutes to 1 second",
-        "Integrated kubeLinter into Jenkins CI pipeline to automatically scan Kubernetes configuration files on pull requests and developed custom linting rules tailored to compliance policies, detecting issues in 70% of PRs"
+        'Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange',
+        'Developed 16 reusable Java convenience methods to streamline offset tracking, enable offset rewind for redis caching, and prevent data loss by bringing down broker unavailability signal handling from 2 minutes to 1 second',
+        'Integrated kubeLinter into Jenkins CI pipeline to automatically scan Kubernetes configuration files on pull requests and developed custom linting rules tailored to compliance policies, detecting issues in 70% of PRs',
       ],
-      technologies: ["Java", "Spring Kafka", "Kubernetes", "Jenkins", "Python", "Git"],
+      technologies: ['Java', 'Spring Kafka', 'Kubernetes', 'Jenkins', 'Python', 'Git'],
     },
     {
-      title: "Founding Software Engineer",
-      company: "As1 Social",
-      location: "Remote",
-      period: "Mar 2025 - May 2025",
+      title: 'Founding Software Engineer',
+      company: 'As1 Social',
+      location: 'Remote',
+      period: 'Mar 2025 - May 2025',
       description: [
-        "Contributed to the MVP development of social media app in React Native (frontend) and PostgreSQL (backend)",
-        "Implemented caption parsing and hashtag ranking for video recommendations, boosting user retention by 30% through personalised feeds based on user preferences, keyword relevance, and trend recency",
-        "Optimised caching and memory usage by over 50% via implementing video prefetching and feed pagination"
+        'Contributed to the MVP development of social media app in React Native (frontend) and PostgreSQL (backend)',
+        'Implemented caption parsing and hashtag ranking for video recommendations, boosting user retention by 30% through personalised feeds based on user preferences, keyword relevance, and trend recency',
+        'Optimised caching and memory usage by over 50% via implementing video prefetching and feed pagination',
       ],
-      technologies: ["React Native", "PostgreSQL", "Tailwind CSS", "Git"],
+      technologies: ['React Native', 'PostgreSQL', 'Tailwind CSS', 'Git'],
     },
     {
-      title: "Software Engineering Intern",
-      company: "Avalon Infosys",
-      location: "Delhi, India",
-      period: "Jun 2024 - Aug 2024",
+      title: 'Software Engineering Intern',
+      company: 'Avalon Infosys',
+      location: 'Delhi, India',
+      period: 'Jun 2024 - Aug 2024',
       description: [
-        "Developed OpenEMIS mobile dashboard to help users locate and view details of schools in developing countries",
-        "Integrated OpenStreetMap with Flutter, rendering vector-based school markers and enabling spatial exploration with custom map layers, improving accessibility of education data by 30%",
-        "Focused on performance and offline usability, key for low-connectivity regions, and implemented location-based data rendering with an eye toward user privacy and lightweight geospatial UX"
+        'Developed OpenEMIS mobile dashboard to help users locate and view details of schools in developing countries',
+        'Integrated OpenStreetMap with Flutter, rendering vector-based school markers and enabling spatial exploration with custom map layers, improving accessibility of education data by 30%',
+        'Focused on performance and offline usability, key for low-connectivity regions, and implemented location-based data rendering with an eye toward user privacy and lightweight geospatial UX',
       ],
-      technologies: ["Flutter", "Firebase", "Dart", "Bitbucket"],
+      technologies: ['Flutter', 'Firebase', 'Dart', 'Bitbucket'],
     },
     {
-      title: "Software Development Intern",
-      company: "SMVDU Narayana Hospital",
-      location: "Jammu, India",
-      period: "July 2022 - August 2022",
+      title: 'Software Development Intern',
+      company: 'SMVDU Narayana Hospital',
+      location: 'Jammu, India',
+      period: 'July 2022 - August 2022',
       description: [
-        "Worked under supervision to develop an algorithm to keep track of vacant beds for admission/discharge of patients during the pandemic, reducing emergency response time by 20%",
-        "Maintained a PostgreSQL database of the oxygen availability in the COVID-19 wards and Operation Theatres",
+        'Worked under supervision to develop an algorithm to keep track of vacant beds for admission/discharge of patients during the pandemic, reducing emergency response time by 20%',
+        'Maintained a PostgreSQL database of the oxygen availability in the COVID-19 wards and Operation Theatres',
       ],
-      technologies: ["Python", "SQL", "Git"],
+      technologies: ['Python', 'SQL', 'Git'],
     },
     {
-        title: "Frontend Development Intern",
-        company: "TA Digital",
-        location: "Remote",
-        period: "Dec 2021-Jan 2022",
-        description: [
-          "Interned as a full-stack web developer and facilitated in making the website more user-friendly/easier to navigate",
-          "Conducted 3 user testing rounds and feedback sessions with accessibility checks to promote equitable web design",
-        ],
-        technologies: ["React", "Bootstrap", "Git"],
-      }
+      title: 'Frontend Development Intern',
+      company: 'TA Digital',
+      location: 'Remote',
+      period: 'Dec 2021-Jan 2022',
+      description: [
+        'Interned as a full-stack web developer and facilitated in making the website more user-friendly/easier to navigate',
+        'Conducted 3 user testing rounds and feedback sessions with accessibility checks to promote equitable web design',
+      ],
+      technologies: ['React', 'Bootstrap', 'Git'],
+    },
   ];
 
   return (
     <section id="experience" className="min-h-screen pt-10 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 pt-6"
+          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+          animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: easeOut }}
+          className="mb-10 pt-6"
         >
           <div className="flex flex-col gap-2">
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Experience</p>
@@ -94,71 +302,37 @@ const Experience: React.FC = () => {
           </div>
         </motion.div>
 
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <motion.article
-              key={exp.company + index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="relative overflow-hidden rounded-xl border border-black/15 bg-white/80 backdrop-blur px-5 py-6 sm:px-6 group"
-            >
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.04),_transparent_65%)]" />
-              <div className="space-y-5">
-                <div className="flex flex-wrap items-center gap-4 justify-between">
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-black">{exp.title}</h3>
-                    <p className="text-sm text-black/60">{exp.company}</p>
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-black/55">
-                      <div className="flex items-center gap-2">
-                        <Calendar size={12} />
-                        <span>{exp.period}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin size={12} />
-                        <span>{exp.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <ul className="space-y-2 text-sm text-black/70">
-                  {exp.description.map((item, i) => (
-                    <li key={i} className="flex gap-3">
-                      <span className="mt-1 h-1 w-1 rounded-full bg-black/50" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.technologies.map((tech, i) => (
-                    <span
-                      key={tech + i}
-                      className="px-3 py-1 text-[0.6rem] uppercase tracking-[0.3em] border border-black/15 rounded-md text-black/60"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
-          ))}
+        <div className="relative">
+          {/* Single continuous rail; dots sit on top (higher z-index) */}
+          <div
+            className="pointer-events-none absolute z-0 left-[10px] top-3 bottom-3 w-px -translate-x-1/2 bg-black/20 md:left-1/2 md:-translate-x-1/2"
+            aria-hidden
+          />
+          <ol className="relative z-[1] list-none m-0 p-0 space-y-0">
+            {experiences.map((exp, index) => (
+              <ExperienceTimelineRow
+                key={`${exp.company}-${index}`}
+                exp={exp}
+                index={index}
+                reducedMotion={reducedMotion}
+                hoverCapable={hoverCapable}
+              />
+            ))}
+          </ol>
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5, delay: experiences.length * 0.05 }}
-          className="mt-12 flex justify-center"
+          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5, ease: easeOut }}
+          className="mt-4 flex justify-center md:mt-8"
         >
           <a
             href="/Vihaan_Gupta_Resume (4).pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase hover:border-black/40 hover:-translate-y-0.5 transition-all duration-300"
+            className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40 hover:-translate-y-0.5 active:translate-y-0"
           >
             View résumé
             <ArrowUpRight size={16} />
@@ -169,4 +343,4 @@ const Experience: React.FC = () => {
   );
 };
 
-export default Experience; 
+export default Experience;
