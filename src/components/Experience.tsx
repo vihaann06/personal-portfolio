@@ -11,7 +11,28 @@ type ExperienceEntry = {
   period: string;
   description: string[];
   technologies: string[];
+  /** Public URL under `/public` (e.g. `/MIAX.png`). Omit when no logo. */
+  logoSrc?: string;
 };
+
+function CompanyLogo({ company, logoSrc }: { company: string; logoSrc?: string }) {
+  if (!logoSrc) return null;
+
+  const label = `${company} logo`;
+
+  return (
+    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14">
+      <img
+        src={logoSrc}
+        alt={label}
+        className="size-full object-cover"
+        width={56}
+        height={56}
+        decoding="async"
+      />
+    </div>
+  );
+}
 
 function timelineItemMotionProps(
   reduced: boolean,
@@ -54,17 +75,20 @@ function ExperienceCardBody({
 }) {
   return (
     <div className="relative">
-      <div className="space-y-2">
-        <h3 className="text-xl font-semibold text-black">{exp.title}</h3>
-        <p className="text-sm text-black/60">{exp.company}</p>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-black/55">
-          <div className="flex items-center gap-2">
-            <Calendar size={12} className="shrink-0 opacity-70" aria-hidden />
-            <span>{exp.period}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin size={12} className="shrink-0 opacity-70" aria-hidden />
-            <span>{exp.location}</span>
+      <div className={`flex ${exp.logoSrc ? 'gap-4' : ''}`}>
+        <CompanyLogo company={exp.company} logoSrc={exp.logoSrc} />
+        <div className={`min-w-0 space-y-2 ${exp.logoSrc ? 'flex-1' : ''}`}>
+          <h3 className="text-xl font-semibold text-black">{exp.title}</h3>
+          <p className="text-sm text-black/60">{exp.company}</p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-black/55">
+            <div className="flex items-center gap-2">
+              <Calendar size={12} className="shrink-0 opacity-70" aria-hidden />
+              <span>{exp.period}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin size={12} className="shrink-0 opacity-70" aria-hidden />
+              <span>{exp.location}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -164,9 +188,7 @@ function ExperienceTimelineRow({
       <motion.article
         ref={articleRef}
         tabIndex={0}
-        role="article"
         aria-label={`${exp.title} at ${exp.company}`}
-        aria-expanded={expanded}
         onMouseEnter={() => hoverCapable && setHovered(true)}
         onMouseLeave={() => hoverCapable && setHovered(false)}
         onFocus={() => setFocused(true)}
@@ -214,6 +236,7 @@ const Experience: React.FC = () => {
       company: 'Stealth Startup',
       location: 'Remote',
       period: 'Nov 2025 - Jan 2026',
+      logoSrc: '/stealth-startup.png',
       description: [
         'Built the MVP of RevCenter, an AI voice agent platform for home service businesses.',
       ],
@@ -224,6 +247,7 @@ const Experience: React.FC = () => {
       company: 'Miami International Holdings',
       location: 'Princeton, NJ',
       period: 'Jun 2025 - Aug 2025',
+      logoSrc: '/MIAX.png',
       description: [
         'Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange.',
       ],
@@ -234,6 +258,7 @@ const Experience: React.FC = () => {
       company: 'As1 Social',
       location: 'Remote',
       period: 'Mar 2025 - May 2025',
+      logoSrc: '/as1-social.png',
       description: [
         'Spearheaded the end-to-end development of 15+ MVP features for a social media app.',
       ],
@@ -244,20 +269,11 @@ const Experience: React.FC = () => {
       company: 'Avalon Infosys',
       location: 'Delhi, India',
       period: 'Jun 2024 - Aug 2024',
+      logoSrc: '/avalon-infosys.png',
       description: [
         'Developed OpenEMIS mobile dashboard to help users locate schools in developing countries.',
       ],
       technologies: ['Flutter', 'Firebase', 'Dart'],
-    },
-    {
-      title: 'Software Development Intern',
-      company: 'SMVDU Narayana Hospital',
-      location: 'Jammu, India',
-      period: 'July 2022 - August 2022',
-      description: [
-        'Developed an algorithm to keep track of vacant beds for admission/discharge of patients during the pandemic.',
-      ],
-      technologies: ['Python', 'SQL', 'Git'],
     }
   ];
 
