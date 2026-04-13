@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Linkedin, Mail, X } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  profileMode: 'personal' | 'professional';
+}
+
+const Hero: React.FC<HeroProps> = ({ profileMode }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookRecommendation, setBookRecommendation] = useState('');
   const [submitterName, setSubmitterName] = useState('');
@@ -54,25 +58,32 @@ const Hero: React.FC = () => {
               <h1 className="text-3xl md:text-4xl font-semibold leading-tight">
                 Building meaningful systems for messy, human contexts.
                 </h1>
-              <p className="text-sm md:text-base text-black/70 leading-relaxed">
-                Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. Currently, I'm serving as a TF for CS 1200 (Data Structures and Algorithms) and working as a HCI researcher @{' '}
-                <a
-                  href="https://glassmanlab.seas.harvard.edu/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 decoration-black/30 hover:decoration-black transition-colors duration-200"
-                >
-                  Variation Lab
-                </a>
-                . I'll be joining Amazon as a Software Engineering Intern this summer.
-                Feel free to reach out if you'd like to chat or{' '}
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="underline underline-offset-4 decoration-black/30 hover:decoration-black transition-colors duration-200"
-                >
-                  swap book recommendations!
-                </button>
-              </p>
+              {profileMode === 'professional' ? (
+                <p className="text-sm md:text-base text-black/70 leading-relaxed">
+                  Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. Currently, I'm serving as a TF for CS 1200 (Data Structures and Algorithms) and working as a HCI researcher @{' '}
+                  <a
+                    href="https://glassmanlab.seas.harvard.edu/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-4 decoration-black/30 hover:decoration-black transition-colors duration-200"
+                  >
+                    Variation Lab
+                  </a>
+                  . I'll be joining Amazon as a Software Engineering Intern this summer.
+                  Feel free to reach out if you'd like to chat!
+                </p>
+              ) : (
+                <p className="text-sm md:text-base text-black/70 leading-relaxed">
+                  Hey! I&apos;m Vihaan. I love studying about the intersection of technology and society. Outside of work and classes, I&apos;m usually reading philosophy, prototyping side projects, and exploring restaurants.
+                  If any of that sounds interesting, I&apos;d love to chat or{' '}
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="underline underline-offset-4 decoration-black/30 hover:decoration-black transition-colors duration-200"
+                  >
+                    swap book recommendations!
+                  </button>
+                </p>
+              )}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
               {[
                   { icon: Linkedin, href: 'https://www.linkedin.com/in/vihaan-gupta-1595332a7', text: 'LinkedIn' },

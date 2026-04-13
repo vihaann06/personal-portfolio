@@ -15,6 +15,10 @@ type ExperienceEntry = {
   logoSrc?: string;
 };
 
+interface ExperienceProps {
+  profileMode: 'personal' | 'professional';
+}
+
 function CompanyLogo({ company, logoSrc }: { company: string; logoSrc?: string }) {
   if (!logoSrc) return null;
 
@@ -226,11 +230,11 @@ function ExperienceTimelineRow({
   );
 }
 
-const Experience: React.FC = () => {
+const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
   const reducedMotion = useReducedMotion() === true;
   const hoverCapable = usePrefersHover();
 
-  const experiences: ExperienceEntry[] = [
+  const professionalExperiences: ExperienceEntry[] = [
     {
       title: 'Founding Software Engineer',
       company: 'Stealth Startup',
@@ -277,6 +281,55 @@ const Experience: React.FC = () => {
     }
   ];
 
+  const personalExperiences: ExperienceEntry[] = [
+    {
+      title: 'Founding Software Engineer',
+      company: 'Stealth Startup',
+      location: 'Remote',
+      period: 'Nov 2025 - Jan 2026',
+      logoSrc: '/stealth-startup.png',
+      description: [
+        'Built for an interesting problem space with a user base that I had little experience with.',
+      ],
+      technologies: ['Node.js', 'Supabase (RLS)', 'ElevenLabs'],
+    },
+    {
+      title: 'Software Engineering Intern',
+      company: 'Miami International Holdings',
+      location: 'Princeton, NJ',
+      period: 'Jun 2025 - Aug 2025',
+      logoSrc: '/MIAX.png',
+      description: [
+        'Learnt how to ship technology for scale in a regulated environment.',
+      ],
+      technologies: ['Java', 'Spring Kafka', 'Kubernetes', 'Jenkins'],
+    },
+    {
+      title: 'Founding Software Engineer',
+      company: 'As1 Social',
+      location: 'Remote',
+      period: 'Mar 2025 - May 2025',
+      logoSrc: '/as1-social.png',
+      description: [
+        'Fast product cycles in a small team with high ownership and direct user feedback.',
+      ],
+      technologies: ['React Native', 'PostgreSQL', 'Tailwind CSS', 'Git'],
+    },
+    {
+      title: 'Software Engineering Intern',
+      company: 'Avalon Infosys',
+      location: 'Delhi, India',
+      period: 'Jun 2024 - Aug 2024',
+      logoSrc: '/avalon-infosys.png',
+      description: [
+        'Introduced me to the world of mobile development and the challenges of building for a global audience.',
+      ],
+      technologies: ['Flutter', 'Firebase', 'Dart'],
+    },
+  ];
+
+  const experiences = profileMode === 'professional' ? professionalExperiences : personalExperiences;
+
   return (
     <section id="experience" className="min-h-screen pt-10 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
@@ -290,7 +343,9 @@ const Experience: React.FC = () => {
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Experience</p>
             <div className="h-px w-full bg-black/10" />
             <h2 className="text-3xl md:text-3xl font-semibold leading-tight">
-              Places where I learned to ship clearly under pressure.
+              {profileMode === 'professional'
+                ? 'Places where I learned to ship clearly under pressure.'
+                : 'Moments that changed how I think and build.'}
             </h2>
           </div>
         </motion.div>
@@ -314,23 +369,25 @@ const Experience: React.FC = () => {
           </ol>
         </div>
 
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5, ease: easeOut }}
-          className="mt-4 flex justify-center md:mt-8"
-        >
-          <a
-            href="/Vihaan_Gupta_Resume (4).pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40 hover:-translate-y-0.5 active:translate-y-0"
+        {profileMode === 'professional' && (
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: easeOut }}
+            className="mt-4 flex justify-center md:mt-8"
           >
-            View résumé
-            <ArrowUpRight size={16} />
-          </a>
-        </motion.div>
+            <a
+              href="/Vihaan_Gupta_Resume (4).pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              View résumé
+              <ArrowUpRight size={16} />
+            </a>
+          </motion.div>
+        )}
       </div>
     </section>
   );

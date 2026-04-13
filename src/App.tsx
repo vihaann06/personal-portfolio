@@ -4,9 +4,11 @@ import Hero from './components/Hero';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Experience from './components/Experience';
+import Thoughts from './components/Thoughts';
 
 const Portfolio = () => {
   const [activeTab, setActiveTab] = useState<'home' | 'experience' | 'projects' | 'contact'>('home');
+  const [profileMode, setProfileMode] = useState<'personal' | 'professional'>('professional');
 
   return (
     <div className="min-h-screen bg-[#f8f7f3] text-black overflow-hidden relative">
@@ -16,30 +18,41 @@ const Portfolio = () => {
         <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[60vw] h-[60vw] rounded-full border border-black/5" />
       </div>
 
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Navigation
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        profileMode={profileMode}
+        setProfileMode={setProfileMode}
+      />
 
       <main className="relative">
       {activeTab === 'home' && (
           <div className="h-[calc(100vh-6.3rem)] overflow-hidden">
-          <Hero />
+          <Hero profileMode={profileMode} />
         </div>
       )}
 
       {activeTab === 'experience' && (
           <div className="min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16">
-          <Experience />
+          <Experience profileMode={profileMode} />
         </div>
       )}
 
       {activeTab === 'projects' && (
-          <div className="min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16">
-          <Projects />
+          <div
+            className={
+              profileMode === 'professional'
+                ? 'min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16'
+                : 'h-[calc(100vh-5.5rem)] overflow-hidden'
+            }
+          >
+          {profileMode === 'professional' ? <Projects /> : <Thoughts />}
         </div>
       )}
 
       {activeTab === 'contact' && (
           <div className="h-[calc(100vh-5.5rem)] overflow-hidden">
-          <Contact />
+          <Contact profileMode={profileMode} />
         </div>
       )}
       </main>
