@@ -77,14 +77,11 @@ function ExperienceCardBody({
           <div
             className={`space-y-5 border-t border-black/10 pt-5 mt-5 ${reducedMotion ? '' : `transition-opacity duration-300 ease-out ${expanded ? 'opacity-100 delay-100' : 'opacity-0'}`}`}
           >
-            <ul className="space-y-2 text-sm text-black/70">
-              {exp.description.map((item, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-black/45" />
-                  <span>{item}</span>
-                </li>
+            <div className="space-y-3 text-sm text-black/70 leading-relaxed">
+              {exp.description.map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
               ))}
-            </ul>
+            </div>
 
             <div className="flex flex-wrap gap-2">
               {exp.technologies.map((tech, i) => (
@@ -218,11 +215,9 @@ const Experience: React.FC = () => {
       location: 'Remote',
       period: 'Nov 2025 - Jan 2026',
       description: [
-        'Built the MVP of RevCenter, an AI voice agent platform for home service businesses, integrating ElevenLabs and Twilio to automate inbound/outbound calls, with <2s average response latency and 95%+ structured lead capture accuracy.',
-        'Architected a multi-tenant backend using Next.js and Supabase (Postgres + RLS) with secure HMAC-verified webhook ingestion to sync real-time call transcripts and outcomes into an internal CRM.',
-        'Implemented Google Calendar scheduling, SMS confirmations, and a live dashboard, enabling end-to-end call-to-appointment workflows in under 60 seconds.',
+        'Built the MVP of RevCenter, an AI voice agent platform for home service businesses.',
       ],
-      technologies: ['Node.js', 'Supabase (RLS)', 'Webhook Architecture (HMAC)', 'REST APIs', 'ElevenLabs'],
+      technologies: ['Node.js', 'Supabase (RLS)', 'ElevenLabs'],
     },
     {
       title: 'Software Engineering Intern',
@@ -230,11 +225,9 @@ const Experience: React.FC = () => {
       location: 'Princeton, NJ',
       period: 'Jun 2025 - Aug 2025',
       description: [
-        'Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange',
-        'Developed 16 reusable Java convenience methods to streamline offset tracking, enable offset rewind for redis caching, and prevent data loss by bringing down broker unavailability signal handling from 2 minutes to 1 second',
-        'Integrated kubeLinter into Jenkins CI pipeline to automatically scan Kubernetes configuration files on pull requests and developed custom linting rules tailored to compliance policies, detecting issues in 70% of PRs',
+        'Deployed a Spring Kafka library to support the messaging infrastructure for 4 options and an equities exchange.',
       ],
-      technologies: ['Java', 'Spring Kafka', 'Kubernetes', 'Jenkins', 'Python', 'Git'],
+      technologies: ['Java', 'Spring Kafka', 'Kubernetes', 'Jenkins'],
     },
     {
       title: 'Founding Software Engineer',
@@ -242,9 +235,7 @@ const Experience: React.FC = () => {
       location: 'Remote',
       period: 'Mar 2025 - May 2025',
       description: [
-        'Contributed to the MVP development of social media app in React Native (frontend) and PostgreSQL (backend)',
-        'Implemented caption parsing and hashtag ranking for video recommendations, boosting user retention by 30% through personalised feeds based on user preferences, keyword relevance, and trend recency',
-        'Optimised caching and memory usage by over 50% via implementing video prefetching and feed pagination',
+        'Spearheaded the end-to-end development of 15+ MVP features for a social media app.',
       ],
       technologies: ['React Native', 'PostgreSQL', 'Tailwind CSS', 'Git'],
     },
@@ -254,11 +245,9 @@ const Experience: React.FC = () => {
       location: 'Delhi, India',
       period: 'Jun 2024 - Aug 2024',
       description: [
-        'Developed OpenEMIS mobile dashboard to help users locate and view details of schools in developing countries',
-        'Integrated OpenStreetMap with Flutter, rendering vector-based school markers and enabling spatial exploration with custom map layers, improving accessibility of education data by 30%',
-        'Focused on performance and offline usability, key for low-connectivity regions, and implemented location-based data rendering with an eye toward user privacy and lightweight geospatial UX',
+        'Developed OpenEMIS mobile dashboard to help users locate schools in developing countries.',
       ],
-      technologies: ['Flutter', 'Firebase', 'Dart', 'Bitbucket'],
+      technologies: ['Flutter', 'Firebase', 'Dart'],
     },
     {
       title: 'Software Development Intern',
@@ -266,22 +255,10 @@ const Experience: React.FC = () => {
       location: 'Jammu, India',
       period: 'July 2022 - August 2022',
       description: [
-        'Worked under supervision to develop an algorithm to keep track of vacant beds for admission/discharge of patients during the pandemic, reducing emergency response time by 20%',
-        'Maintained a PostgreSQL database of the oxygen availability in the COVID-19 wards and Operation Theatres',
+        'Developed an algorithm to keep track of vacant beds for admission/discharge of patients during the pandemic.',
       ],
       technologies: ['Python', 'SQL', 'Git'],
-    },
-    {
-      title: 'Frontend Development Intern',
-      company: 'TA Digital',
-      location: 'Remote',
-      period: 'Dec 2021-Jan 2022',
-      description: [
-        'Interned as a full-stack web developer and facilitated in making the website more user-friendly/easier to navigate',
-        'Conducted 3 user testing rounds and feedback sessions with accessibility checks to promote equitable web design',
-      ],
-      technologies: ['React', 'Bootstrap', 'Git'],
-    },
+    }
   ];
 
   return (
