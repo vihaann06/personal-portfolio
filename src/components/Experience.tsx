@@ -378,7 +378,7 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
             className="mt-4 flex justify-center md:mt-8"
           >
             <a
-              href="/Final-Resume-Vihaan.pdf"
+              href="/Resume-Final-Vihaan-Gupta.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40 hover:-translate-y-0.5 active:translate-y-0"

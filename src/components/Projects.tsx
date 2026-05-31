@@ -5,6 +5,12 @@ import { Github, ExternalLink, FileText, Figma } from 'lucide-react';
 const Projects: React.FC = () => {
   const projects = [
     {
+      title: 'Replicated Editor',
+      description:
+        'Fault-tolerant collaborative text editor backed by a Multi-Paxos replicated log system, ensuring document state stays consistent across concurrent clients despite replica failures.',
+      technologies: ['C++', 'Multi-Paxos', 'WebSockets', 'Networking'],
+    },
+    {
       title: "Lumi.ai",
       description: "An AI-powered PDF workspace that lets users highlight any passage and instantly generate context-aware explanations, abstractive summaries, and properly formatted citations from the selected text.",
       technologies: ["React", "Supabase", "Tailwind CSS", "OpenAI API"],
