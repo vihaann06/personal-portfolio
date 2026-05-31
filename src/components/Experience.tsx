@@ -13,23 +13,37 @@ type ExperienceEntry = {
   technologies: string[];
   /** Public URL under `/public` (e.g. `/MIAX.png`). Omit when no logo. */
   logoSrc?: string;
+  logoClassName?: string;
+  logoFit?: 'cover' | 'contain';
 };
 
 interface ExperienceProps {
   profileMode: 'personal' | 'professional';
 }
 
-function CompanyLogo({ company, logoSrc }: { company: string; logoSrc?: string }) {
+function CompanyLogo({
+  company,
+  logoSrc,
+  logoClassName,
+  logoFit = 'cover',
+}: {
+  company: string;
+  logoSrc?: string;
+  logoClassName?: string;
+  logoFit?: 'cover' | 'contain';
+}) {
   if (!logoSrc) return null;
 
   const label = `${company} logo`;
 
   return (
-    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14">
+    <div
+      className={`shrink-0 overflow-hidden rounded-xl ${logoClassName ?? 'h-12 w-12 sm:h-14 sm:w-14'}`}
+    >
       <img
         src={logoSrc}
         alt={label}
-        className="size-full object-cover"
+        className={`size-full ${logoFit === 'contain' ? 'object-contain p-1' : 'object-cover'}`}
         width={56}
         height={56}
         decoding="async"
@@ -80,7 +94,12 @@ function ExperienceCardBody({
   return (
     <div className="relative">
       <div className={`flex ${exp.logoSrc ? 'gap-4' : ''}`}>
-        <CompanyLogo company={exp.company} logoSrc={exp.logoSrc} />
+        <CompanyLogo
+          company={exp.company}
+          logoSrc={exp.logoSrc}
+          logoClassName={exp.logoClassName}
+          logoFit={exp.logoFit}
+        />
         <div className={`min-w-0 space-y-2 ${exp.logoSrc ? 'flex-1' : ''}`}>
           <h3 className="text-xl font-semibold text-black">{exp.title}</h3>
           <p className="text-sm text-black/60">{exp.company}</p>
@@ -236,6 +255,19 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
 
   const professionalExperiences: ExperienceEntry[] = [
     {
+      title: 'Software Development Engineer Intern',
+      company: 'Amazon Web Services',
+      location: 'New York City, NY',
+      period: 'May 2026 - Present',
+      logoSrc: '/Amazon_Web_Services_Logo.svg.png',
+      logoClassName: 'h-8 w-[3.25rem] sm:h-9 sm:w-[3.75rem]',
+      logoFit: 'contain',
+      description: [
+        'Building AI agents to help AWS Payments onboard external partners smoothly.',
+      ],
+      technologies: ['Java', 'Context Engineering', 'AWS Lambda'],
+    },
+    {
       title: 'Founding Software Engineer',
       company: 'Stealth Startup',
       location: 'Remote',
@@ -282,6 +314,19 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
   ];
 
   const personalExperiences: ExperienceEntry[] = [
+    {
+      title: 'Software Development Engineer Intern',
+      company: 'Amazon Web Services',
+      location: 'New York City, NY',
+      period: 'May 2026 - Present',
+      logoSrc: '/Amazon_Web_Services_Logo.svg.png',
+      logoClassName: 'h-8 w-[3.25rem] sm:h-9 sm:w-[3.75rem]',
+      logoFit: 'contain',
+      description: [
+        'My first taste of building AI for hyperscale systems.',
+      ],
+      technologies: ['Java', 'Context Engineering', 'AWS Lambda'],
+    },
     {
       title: 'Founding Software Engineer',
       company: 'Stealth Startup',

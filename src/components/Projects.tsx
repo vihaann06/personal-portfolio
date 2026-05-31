@@ -9,6 +9,7 @@ const Projects: React.FC = () => {
       description:
         'Fault-tolerant collaborative text editor backed by a Multi-Paxos replicated log system, ensuring document state stays consistent across concurrent clients despite replica failures.',
       technologies: ['C++', 'Multi-Paxos', 'WebSockets', 'Networking'],
+      github: 'https://github.com/vihaann06/replicated-editor',
     },
     {
       title: "Lumi.ai",
