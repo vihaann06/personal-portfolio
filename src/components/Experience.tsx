@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Calendar, MapPin } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
+import Magnetic from './Magnetic';
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
@@ -202,7 +203,11 @@ function ExperienceTimelineRow({
     <li className="relative grid grid-cols-[auto_1fr] gap-x-4 items-start pb-12 md:grid-cols-[1fr_auto_1fr] md:gap-x-10 md:pb-16 last:pb-8 md:last:pb-8">
       {/* Dot centered on the global timeline rail (see parent wrapper) */}
       <div className="relative z-[2] col-start-1 row-start-1 flex w-5 shrink-0 justify-center md:col-start-2 md:w-10">
-        <span
+        <motion.span
+          initial={reducedMotion ? false : { scale: 0 }}
+          whileInView={reducedMotion ? undefined : { scale: 1 }}
+          viewport={{ once: true, margin: '-15% 0px' }}
+          transition={{ type: 'spring', stiffness: 360, damping: 22, delay: 0.15 }}
           className="relative z-[3] mt-1.5 size-2.5 shrink-0 rounded-full border-2 border-black/25 bg-[#f8f7f3] shadow-[0_0_0_3px_#f8f7f3] ring-1 ring-black/[0.06] md:mt-7 md:size-3 md:shadow-[0_0_0_5px_#f8f7f3]"
           aria-hidden
         />
@@ -252,6 +257,16 @@ function ExperienceTimelineRow({
 const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
   const reducedMotion = useReducedMotion() === true;
   const hoverCapable = usePrefersHover();
+
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 0.85', 'end 0.45'],
+  });
+  const railProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.6 });
+
+  const { scrollYProgress: pageProgress } = useScroll();
+  const watermarkY = useTransform(pageProgress, [0, 1], [0, 140]);
 
   const professionalExperiences: ExperienceEntry[] = [
     {
@@ -376,8 +391,18 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
   const experiences = profileMode === 'professional' ? professionalExperiences : personalExperiences;
 
   return (
-    <section id="experience" className="min-h-screen pt-10 pb-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
+    <section id="experience" className="relative min-h-screen pt-10 pb-16">
+      {/* Giant outlined watermark with scroll parallax */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <motion.span
+          style={{ y: reducedMotion ? 0 : watermarkY }}
+          className="text-outline absolute -top-3 right-[-1vw] select-none text-[7rem] font-bold leading-none tracking-tight md:text-[12rem]"
+        >
+          Work
+        </motion.span>
+      </div>
+
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
         <motion.div
           initial={reducedMotion ? false : { opacity: 0, y: 16 }}
           animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
@@ -386,19 +411,37 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
         >
           <div className="flex flex-col gap-2">
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Experience</p>
-            <div className="h-px w-full bg-black/10" />
-            <h2 className="text-3xl md:text-3xl font-semibold leading-tight">
-              {profileMode === 'professional'
-                ? 'Places where I learned to ship clearly under pressure.'
-                : 'Moments that changed how I think and build.'}
+            <motion.div
+              initial={reducedMotion ? false : { scaleX: 0 }}
+              animate={reducedMotion ? undefined : { scaleX: 1 }}
+              transition={{ duration: 0.9, ease: easeOut, delay: 0.15 }}
+              className="h-px w-full origin-left bg-black/10"
+            />
+            <h2 className="text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
+              {profileMode === 'professional' ? (
+                <>
+                  Places where I learned to ship{' '}
+                  <span className="font-serif italic font-normal">clearly</span> under pressure.
+                </>
+              ) : (
+                <>
+                  Moments that <span className="font-serif italic font-normal">changed</span> how I
+                  think and build.
+                </>
+              )}
             </h2>
           </div>
         </motion.div>
 
-        <div className="relative">
-          {/* Single continuous rail; dots sit on top (higher z-index) */}
+        <div className="relative" ref={timelineRef}>
+          {/* Faint full rail + scroll-drawn ink rail; dots sit on top (higher z-index) */}
           <div
-            className="pointer-events-none absolute z-0 left-[10px] top-3 bottom-3 w-px -translate-x-1/2 bg-black/20 md:left-1/2 md:-translate-x-1/2"
+            className="pointer-events-none absolute z-0 left-[10px] top-3 bottom-3 w-px -translate-x-1/2 bg-black/10 md:left-1/2 md:-translate-x-1/2"
+            aria-hidden
+          />
+          <motion.div
+            className="pointer-events-none absolute z-0 left-[10px] top-3 bottom-3 w-px origin-top -translate-x-1/2 bg-black/50 md:left-1/2 md:-translate-x-1/2"
+            style={{ scaleY: reducedMotion ? 1 : railProgress }}
             aria-hidden
           />
           <ol className="relative z-[1] list-none m-0 p-0 space-y-0">
@@ -422,15 +465,17 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
             transition={{ duration: 0.5, ease: easeOut }}
             className="mt-4 flex justify-center md:mt-8"
           >
-            <a
-              href="/Resume-Final-Vihaan-Gupta.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40 hover:-translate-y-0.5 active:translate-y-0"
-            >
-              View résumé
-              <ArrowUpRight size={16} />
-            </a>
+            <Magnetic strength={0.2}>
+              <a
+                href="/Resume-Final-Vihaan-Gupta.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40"
+              >
+                View résumé
+                <ArrowUpRight size={16} />
+              </a>
+            </Magnetic>
           </motion.div>
         )}
       </div>

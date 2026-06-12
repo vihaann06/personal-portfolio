@@ -1,8 +1,22 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Github, ExternalLink, FileText, Figma } from 'lucide-react';
 
+const easeOut = [0.16, 1, 0.3, 1] as const;
+
+/** Stores cursor position as CSS vars so the card spotlight can follow it. */
+const trackSpotlight = (e: React.MouseEvent<HTMLElement>) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+  e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
+};
+
 const Projects: React.FC = () => {
+  const reducedMotion = useReducedMotion() === true;
+
+  const { scrollYProgress: pageProgress } = useScroll();
+  const watermarkY = useTransform(pageProgress, [0, 1], [0, 140]);
+
   const projects = [
     {
       title: 'Replicated Editor',
@@ -86,20 +100,35 @@ const Projects: React.FC = () => {
   ];
 
   return (
-    <section id="projects" className="min-h-screen pt-10 pb-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.4 }}
+    <section id="projects" className="relative min-h-screen pt-10 pb-16">
+      {/* Giant outlined watermark with scroll parallax */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <motion.span
+          style={{ y: reducedMotion ? 0 : watermarkY }}
+          className="text-outline absolute -top-3 right-[-1vw] select-none text-[7rem] font-bold leading-none tracking-tight md:text-[12rem]"
+        >
+          Index
+        </motion.span>
+      </div>
+
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-8 lg:px-12">
+        <motion.div
+          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+          animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: easeOut }}
           className="mb-8"
         >
           <div className="flex flex-col gap-2">
             <p className="text-[0.5rem] uppercase tracking-[0.5em] text-black/50">Projects</p>
-            <div className="h-px w-full bg-black/10" />
-            <h2 className="text-3xl font-semibold leading-tight">
-              Experiments, shipped products, and research tools.
+            <motion.div
+              initial={reducedMotion ? false : { scaleX: 0 }}
+              animate={reducedMotion ? undefined : { scaleX: 1 }}
+              transition={{ duration: 0.9, ease: easeOut, delay: 0.15 }}
+              className="h-px w-full origin-left bg-black/10"
+            />
+            <h2 className="text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
+              Experiments, <span className="font-serif italic font-normal">shipped products</span>,
+              and research tools.
             </h2>
           </div>
         </motion.div>
@@ -108,13 +137,31 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.4, delay: index * 0.03 }}
-              className="relative rounded-xl border border-black/15 bg-white/80 backdrop-blur px-5 py-6"
+              initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.55, ease: easeOut, delay: Math.min(index * 0.05, 0.2) }}
+              onMouseMove={trackSpotlight}
+              className="group relative overflow-hidden rounded-xl border border-black/15 bg-white/80 backdrop-blur px-5 py-6 transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-black/30 hover:shadow-[0_18px_40px_rgba(0,0,0,0.07)]"
             >
-              <h3 className="text-xl font-semibold text-black">{project.title}</h3>
+              {/* Cursor-following spotlight */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{
+                  background:
+                    'radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(0,0,0,0.05), transparent 65%)',
+                }}
+                aria-hidden
+              />
+              <span
+                className="absolute top-5 right-5 text-[0.65rem] font-medium tracking-[0.3em] text-black/25 transition-colors duration-300 group-hover:text-black/45"
+                aria-hidden
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3 className="text-xl font-semibold text-black pr-10">
+                <span className="u-underline">{project.title}</span>
+              </h3>
               <p className="mt-2 text-sm text-black/65">{project.description}</p>
 
               <div className="flex flex-wrap gap-2 pt-4">

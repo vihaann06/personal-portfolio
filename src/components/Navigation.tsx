@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface NavigationProps {
   activeTab: 'home' | 'experience' | 'projects' | 'contact';
@@ -6,6 +7,8 @@ interface NavigationProps {
   profileMode: 'personal' | 'professional';
   setProfileMode: (mode: 'personal' | 'professional') => void;
 }
+
+const pillSpring = { type: 'spring', stiffness: 430, damping: 34, mass: 0.9 } as const;
 
 const Navigation: React.FC<NavigationProps> = ({
   activeTab,
@@ -21,39 +24,70 @@ const Navigation: React.FC<NavigationProps> = ({
   ];
 
   return (
-    <nav className="bg-transparent mt-5">
+    <nav className="bg-transparent mt-5 relative z-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 pt-4">
         <div className="flex items-center justify-between gap-4 h-16">
           <div className="flex items-center gap-1.5 px-2.5 py-2 border border-black/15 bg-white/70 backdrop-blur rounded-full">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 text-[0.75rem] uppercase tracking-[0.22em] rounded-full transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'bg-black text-white shadow-[0_8px_18px_rgba(0,0,0,0.18)]'
-                    : 'text-black/60 hover:text-black hover:bg-black/5'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative px-4 py-2 text-[0.75rem] uppercase tracking-[0.22em] rounded-full transition-colors duration-300 ${
+                    isActive ? '' : 'hover:bg-black/5'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active-pill"
+                      transition={pillSpring}
+                      className="absolute inset-0 rounded-full bg-black shadow-[0_8px_18px_rgba(0,0,0,0.18)]"
+                      aria-hidden
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 transition-colors duration-300 ${
+                      isActive ? 'text-white' : 'text-black/60 hover:text-black'
+                    }`}
+                  >
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
+
           <div className="flex items-center gap-1.5 px-2 py-2 border border-black/15 bg-white/70 backdrop-blur rounded-full">
-            {(['personal', 'professional'] as const).map((mode) => (
-              <button
-                key={mode}
-                onClick={() => setProfileMode(mode)}
-                className={`px-3 py-2 text-[0.68rem] uppercase tracking-[0.2em] rounded-full transition-all duration-300 ${
-                  profileMode === mode
-                    ? 'bg-black text-white shadow-[0_8px_18px_rgba(0,0,0,0.18)]'
-                    : 'text-black/60 hover:text-black hover:bg-black/5'
-                }`}
-                aria-pressed={profileMode === mode}
-              >
-                {mode}
-              </button>
-            ))}
+            {(['personal', 'professional'] as const).map((mode) => {
+              const isActive = profileMode === mode;
+              return (
+                <button
+                  key={mode}
+                  onClick={() => setProfileMode(mode)}
+                  aria-pressed={isActive}
+                  className={`relative px-3 py-2 text-[0.68rem] uppercase tracking-[0.2em] rounded-full transition-colors duration-300 ${
+                    isActive ? '' : 'hover:bg-black/5'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="mode-active-pill"
+                      transition={pillSpring}
+                      className="absolute inset-0 rounded-full bg-black shadow-[0_8px_18px_rgba(0,0,0,0.18)]"
+                      aria-hidden
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 transition-colors duration-300 ${
+                      isActive ? 'text-white' : 'text-black/60 hover:text-black'
+                    }`}
+                  >
+                    {mode}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -61,4 +95,4 @@ const Navigation: React.FC<NavigationProps> = ({
   );
 };
 
-export default Navigation; 
+export default Navigation;
