@@ -66,7 +66,7 @@ const Desktop: React.FC = () => {
             label={folder.label}
             selected={selectedIcon === folder.id}
             onSelect={() => setSelectedIcon(folder.id)}
-            onOpen={() => openFolder(folder.id, folder.label)}
+            // Placeholder for now — opening folders comes later.
           />
         ))}
       </div>
@@ -99,7 +99,7 @@ const Desktop: React.FC = () => {
       </div>
 
       <Dock
-        onOpenFinder={() => openFolder('about', 'About Me')}
+        onOpenFinder={() => openFolder('home', 'Finder')}
         onOpenTerminal={openTerminal}
       />
     </div>

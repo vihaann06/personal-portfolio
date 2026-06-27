@@ -14,11 +14,9 @@ export interface FolderItem {
   label: string;
 }
 
-/** Each portfolio section lives in its own desktop folder. Contents come later. */
+/** Desktop folders. Contents (projects, writing, papers) come later. */
 export const FOLDERS: FolderItem[] = [
-  { id: 'about', label: 'About Me' },
-  { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
-  { id: 'education', label: 'Education' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'writing', label: 'Writing' },
+  { id: 'papers', label: 'Papers' },
 ];

@@ -4,10 +4,11 @@ interface DesktopIconProps {
   label: string;
   selected: boolean;
   onSelect: () => void;
-  onOpen: () => void;
+  /** Optional — folders without a handler are inert placeholders for now. */
+  onOpen?: () => void;
 }
 
-/** A desktop folder: single click selects, double click opens. */
+/** A desktop folder: single click selects, double click opens (if wired). */
 const DesktopIcon: React.FC<DesktopIconProps> = ({ label, selected, onSelect, onOpen }) => (
   <button
     onClick={(e) => {
@@ -16,7 +17,7 @@ const DesktopIcon: React.FC<DesktopIconProps> = ({ label, selected, onSelect, on
     }}
     onDoubleClick={(e) => {
       e.stopPropagation();
-      onOpen();
+      onOpen?.();
     }}
     className="group flex w-24 flex-col items-center gap-1 rounded-lg p-1.5 text-center outline-none"
   >

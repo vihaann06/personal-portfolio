@@ -14,42 +14,32 @@ interface DockProps {
   onOpenTerminal: () => void;
 }
 
+const iconImg = (src: string) => (
+  <img src={src} alt="" className="h-full w-full object-contain" draggable={false} />
+);
+
 const Dock: React.FC<DockProps> = ({ onOpenFinder, onOpenTerminal }) => {
   const items: DockItem[] = [
-    {
-      id: 'finder',
-      label: 'Finder',
-      onClick: onOpenFinder,
-      render: (
-        <img
-          src="/finder-icon.png"
-          alt=""
-          className="h-full w-full object-contain"
-          draggable={false}
-        />
-      ),
-    },
+    { id: 'finder', label: 'Finder', onClick: onOpenFinder, render: iconImg('/finder-icon.png') },
+    { id: 'notes', label: 'Notes', render: iconImg('/notes-icon.png') },
+    { id: 'spotify', label: 'Music', render: iconImg('/spotify-icon.png') },
+    { id: 'photos', label: 'Photos', render: iconImg('/photos-icon.png') },
+    { id: 'reminders', label: 'Reminders', render: iconImg('/reminders-icon.png') },
     {
       id: 'terminal',
       label: 'Terminal',
       onClick: onOpenTerminal,
-      render: (
-        <img
-          src="/terminal-icon.png"
-          alt=""
-          className="h-full w-full object-contain"
-          draggable={false}
-        />
-      ),
+      trailing: true,
+      render: iconImg('/terminal-icon.png'),
     },
   ];
 
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-2 z-[55] flex justify-center">
       <div className="pointer-events-auto flex items-end gap-2.5 rounded-2xl border border-white/25 bg-white/15 px-3 py-2 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
-        {items.map((item, i) => (
+        {items.map((item) => (
           <React.Fragment key={item.id}>
-            {item.trailing && <span className="mx-0.5 h-12 w-px self-center bg-white/25" />}
+            {item.trailing && <span className="mx-0.5 h-14 w-px self-center bg-white/25" />}
             <motion.button
               onClick={item.onClick}
               whileHover={{ scale: 1.32, y: -10 }}
