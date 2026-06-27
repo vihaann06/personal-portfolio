@@ -5,6 +5,7 @@ import { DesktopWindow } from './types';
 interface DockProps {
   onOpenFinder: () => void;
   onOpenTerminal: () => void;
+  onOpenPortfolio: () => void;
   minimized: DesktopWindow[];
   onRestore: (id: string) => void;
 }
@@ -42,7 +43,13 @@ const DockButton: React.FC<{
   </motion.button>
 );
 
-const Dock: React.FC<DockProps> = ({ onOpenFinder, onOpenTerminal, minimized, onRestore }) => {
+const Dock: React.FC<DockProps> = ({
+  onOpenFinder,
+  onOpenTerminal,
+  onOpenPortfolio,
+  minimized,
+  onRestore,
+}) => {
   const onAppClick: Record<string, (() => void) | undefined> = {
     finder: onOpenFinder,
     terminal: onOpenTerminal,
@@ -51,6 +58,8 @@ const Dock: React.FC<DockProps> = ({ onOpenFinder, onOpenTerminal, minimized, on
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-2 z-[55] flex justify-center">
       <div className="pointer-events-auto flex items-end gap-2.5 rounded-2xl border border-white/25 bg-white/15 px-3 py-2 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+        <DockButton label="Portfolio" src="/safari-icon.png" onClick={onOpenPortfolio} />
+        <span className="mx-0.5 h-14 w-px self-center bg-white/25" />
         {APP_ICONS.map((app) => (
           <DockButton key={app.id} label={app.label} src={app.src} onClick={onAppClick[app.id]} />
         ))}

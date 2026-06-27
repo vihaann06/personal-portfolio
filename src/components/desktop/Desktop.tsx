@@ -13,7 +13,12 @@ const WINDOW_SIZES: Record<WindowKind, { width: number; height: number }> = {
 };
 
 
-const Desktop: React.FC = () => {
+interface DesktopProps {
+  /** Re-opens the portfolio app (the desktop is the meta-world it lives in). */
+  onOpenPortfolio: () => void;
+}
+
+const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
   const constraintsRef = useRef<HTMLDivElement>(null);
   const spawnCounter = useRef(0);
 
@@ -120,6 +125,7 @@ const Desktop: React.FC = () => {
       <Dock
         onOpenFinder={() => openFolder('home', 'Finder')}
         onOpenTerminal={openTerminal}
+        onOpenPortfolio={onOpenPortfolio}
         minimized={windows.filter((w) => minimizedIds.includes(w.id))}
         onRestore={restoreWindow}
       />
