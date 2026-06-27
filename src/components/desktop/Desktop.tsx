@@ -8,9 +8,10 @@ import FinderWindow from './FinderWindow';
 import { DesktopWindow, FOLDERS, WindowKind } from './types';
 
 const WINDOW_SIZES: Record<WindowKind, { width: number; height: number }> = {
-  finder: { width: 580, height: 380 },
+  finder: { width: 660, height: 440 },
   terminal: { width: 640, height: 400 },
 };
+
 
 const Desktop: React.FC = () => {
   const constraintsRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,7 @@ const Desktop: React.FC = () => {
 
   const [windows, setWindows] = useState<DesktopWindow[]>([]);
   const [focusedId, setFocusedId] = useState<string | null>(null);
+  const [minimizedIds, setMinimizedIds] = useState<string[]>([]);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
 
   const focusWindow = useCallback((id: string) => {
@@ -30,10 +32,11 @@ const Desktop: React.FC = () => {
   }, []);
 
   const openWindow = useCallback(
-    (id: string, kind: WindowKind, title: string) => {
+    (id: string, kind: WindowKind, title: string, folderId?: string) => {
+      setMinimizedIds((prev) => prev.filter((m) => m !== id));
       setWindows((prev) => {
         if (prev.some((w) => w.id === id)) return prev;
-        return [...prev, { id, kind, title, spawnIndex: spawnCounter.current++ % 6 }];
+        return [...prev, { id, kind, title, folderId, spawnIndex: spawnCounter.current++ % 6 }];
       });
       setFocusedId(id);
     },
@@ -42,10 +45,24 @@ const Desktop: React.FC = () => {
 
   const closeWindow = useCallback((id: string) => {
     setWindows((prev) => prev.filter((w) => w.id !== id));
+    setMinimizedIds((prev) => prev.filter((m) => m !== id));
   }, []);
 
+  const minimizeWindow = useCallback((id: string) => {
+    setMinimizedIds((prev) => (prev.includes(id) ? prev : [...prev, id]));
+    setFocusedId((prev) => (prev === id ? null : prev));
+  }, []);
+
+  const restoreWindow = useCallback(
+    (id: string) => {
+      setMinimizedIds((prev) => prev.filter((m) => m !== id));
+      focusWindow(id);
+    },
+    [focusWindow],
+  );
+
   const openFolder = (folderId: string, label: string) =>
-    openWindow(`finder-${folderId}`, 'finder', label);
+    openWindow(`finder-${folderId}`, 'finder', label, folderId);
 
   const openTerminal = () => openWindow('terminal', 'terminal', 'vihaan — -zsh — 80×24');
 
@@ -66,7 +83,7 @@ const Desktop: React.FC = () => {
             label={folder.label}
             selected={selectedIcon === folder.id}
             onSelect={() => setSelectedIcon(folder.id)}
-            // Placeholder for now — opening folders comes later.
+            onOpen={() => openFolder(folder.id, folder.label)}
           />
         ))}
       </div>
@@ -84,14 +101,16 @@ const Desktop: React.FC = () => {
               width={WINDOW_SIZES[win.kind].width}
               height={WINDOW_SIZES[win.kind].height}
               variant={win.kind === 'terminal' ? 'terminal' : 'light'}
+              minimized={minimizedIds.includes(win.id)}
               constraintsRef={constraintsRef}
               onClose={() => closeWindow(win.id)}
+              onMinimize={() => minimizeWindow(win.id)}
               onFocus={() => focusWindow(win.id)}
             >
               {win.kind === 'terminal' ? (
                 <TerminalWindow />
               ) : (
-                <FinderWindow label={win.title} />
+                <FinderWindow folderId={win.folderId} />
               )}
             </WindowFrame>
           ))}
@@ -101,6 +120,8 @@ const Desktop: React.FC = () => {
       <Dock
         onOpenFinder={() => openFolder('home', 'Finder')}
         onOpenTerminal={openTerminal}
+        minimized={windows.filter((w) => minimizedIds.includes(w.id))}
+        onRestore={restoreWindow}
       />
     </div>
   );

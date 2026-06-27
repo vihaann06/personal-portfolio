@@ -7,6 +7,8 @@ export interface DesktopWindow {
   title: string;
   /** Index at spawn time — drives the staggered open position (stable across re-stacking). */
   spawnIndex: number;
+  /** Which desktop folder this Finder window represents (e.g. `projects`). */
+  folderId?: string;
 }
 
 export interface FolderItem {
@@ -14,9 +16,9 @@ export interface FolderItem {
   label: string;
 }
 
-/** Desktop folders. Contents (projects, writing, papers) come later. */
+/** Desktop folders mapped to virtual-filesystem entry points. */
 export const FOLDERS: FolderItem[] = [
   { id: 'projects', label: 'Projects' },
-  { id: 'writing', label: 'Writing' },
+  { id: 'books', label: 'My Books' },
   { id: 'papers', label: 'Papers' },
 ];

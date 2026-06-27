@@ -10,8 +10,10 @@ interface WindowFrameProps {
   width: number;
   height: number;
   variant?: 'light' | 'terminal';
+  minimized: boolean;
   constraintsRef: React.RefObject<HTMLDivElement>;
   onClose: () => void;
+  onMinimize: () => void;
   onFocus: () => void;
   children: React.ReactNode;
 }
@@ -23,7 +25,7 @@ const TrafficLight: React.FC<{ color: string; glyph: string; onClick?: (e: React
 }) => (
   <button
     onClick={onClick}
-    className={`flex h-3 w-3 items-center justify-center rounded-full ${color} text-[8px] font-bold leading-none text-black/55 opacity-0 transition-opacity group-hover/lights:opacity-100`}
+    className={`flex h-3 w-3 items-center justify-center rounded-full ${color} text-[8px] font-bold leading-none text-black/55`}
     style={{ textShadow: '0 0 1px rgba(0,0,0,0.2)' }}
   >
     {glyph}
@@ -38,8 +40,10 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
   width,
   height,
   variant = 'light',
+  minimized,
   constraintsRef,
   onClose,
+  onMinimize,
   onFocus,
   children,
 }) => {
@@ -48,17 +52,20 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
 
   return (
     <motion.div
-      drag
+      drag={!minimized}
       dragControls={dragControls}
       dragListener={false}
       dragMomentum={false}
       dragConstraints={constraintsRef}
       dragElastic={0}
       onMouseDownCapture={onFocus}
-      initial={{ opacity: 0, scale: 0.95, y: 8 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95, y: 8 }}
-      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{
+        opacity: minimized ? 0 : 1,
+        scale: minimized ? 0.2 : 1,
+      }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: minimized ? 0.32 : 0.2, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'absolute',
         left: 120 + spawnIndex * 32,
@@ -66,8 +73,10 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
         width,
         height,
         zIndex,
+        transformOrigin: 'bottom center',
+        pointerEvents: minimized ? 'none' : 'auto',
       }}
-      className={`pointer-events-auto flex flex-col overflow-hidden rounded-xl backdrop-blur-2xl ${
+      className={`flex flex-col overflow-hidden rounded-xl backdrop-blur-2xl ${
         isTerminal ? 'bg-[#1b1b1d]/95' : 'bg-[#ececec]/95'
       } ${
         isFocused
@@ -91,7 +100,14 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
               onClose();
             }}
           />
-          <TrafficLight color="bg-[#febc2e]" glyph="−" />
+          <TrafficLight
+            color="bg-[#febc2e]"
+            glyph="−"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMinimize();
+            }}
+          />
           <TrafficLight color="bg-[#28c840]" glyph="+" />
         </div>
 
