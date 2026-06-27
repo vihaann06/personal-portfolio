@@ -3,14 +3,10 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Check, Copy, Mail, MapPin, Phone } from 'lucide-react';
 import Magnetic from './Magnetic';
 
-interface ContactProps {
-  profileMode: 'personal' | 'professional';
-}
-
 const easeOut = [0.16, 1, 0.3, 1] as const;
 const EMAIL = 'vihaangupta@college.harvard.edu';
 
-const Contact: React.FC<ContactProps> = ({ profileMode }) => {
+const Contact: React.FC = () => {
   const reducedMotion = useReducedMotion() === true;
   const [copied, setCopied] = useState(false);
 
@@ -70,25 +66,13 @@ const Contact: React.FC<ContactProps> = ({ profileMode }) => {
           className="mt-10 grid gap-8 border-t border-black/10 pt-8 md:grid-cols-2 md:gap-12"
         >
           <div className="space-y-3">
-            {profileMode === 'professional' ? (
-              <>
-                <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Available for</p>
-                <p className="text-base font-semibold">Product + infra internships · creative collabs</p>
-                <p className="text-sm text-black/65 leading-relaxed">
-                  I gravitate toward teams building considerate, high-leverage tools. If you&apos;re
-                  exploring intentional tech, community infrastructure, or just want to debate
-                  Kierkegaard vs. Arendt, I&apos;m game.
-                </p>
-              </>
-            ) : (
-              <>
-                <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Next conversation</p>
-                <p className="text-base font-semibold">Tell me what you&apos;re building.</p>
-                <p className="text-sm text-black/65 leading-relaxed">
-                  Drop a note with a problem statement, a figma link, or a story—promise to respond.
-                </p>
-              </>
-            )}
+            <p className="text-[0.55rem] uppercase tracking-[0.5em] text-black/50">Available for</p>
+            <p className="text-base font-semibold">Product + infra internships · creative collabs</p>
+            <p className="text-sm text-black/65 leading-relaxed">
+              I gravitate toward teams building considerate, high-leverage tools. If you&apos;re
+              exploring intentional tech, community infrastructure, or just want to debate
+              Kierkegaard vs. Arendt, I&apos;m game.
+            </p>
           </div>
 
           <div className="space-y-3">

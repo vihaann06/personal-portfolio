@@ -5,7 +5,6 @@ import Hero from './Hero';
 import Projects from './Projects';
 import Contact from './Contact';
 import Experience from './Experience';
-import Thoughts from './Thoughts';
 import Intro from './Intro';
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -65,7 +64,6 @@ const WindowChrome: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
 
 const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
   const [activeTab, setActiveTab] = useState<'home' | 'experience' | 'projects' | 'contact'>('home');
-  const [profileMode, setProfileMode] = useState<'personal' | 'professional'>('professional');
   const reducedMotion = useReducedMotion() === true;
 
   const { scrollYProgress } = useScroll();
@@ -100,17 +98,12 @@ const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
         />
       </div>
 
-      <Navigation
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        profileMode={profileMode}
-        setProfileMode={setProfileMode}
-      />
+      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <main className="relative">
         <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0 })}>
           <motion.div
-            key={`${activeTab}-${profileMode}`}
+            key={activeTab}
             initial={reducedMotion ? false : { opacity: 0, y: 24, filter: 'blur(8px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={
@@ -122,31 +115,25 @@ const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
           >
             {activeTab === 'home' && (
               <div className="h-[calc(100vh-6.3rem)] overflow-hidden">
-                <Hero profileMode={profileMode} />
+                <Hero />
               </div>
             )}
 
             {activeTab === 'experience' && (
               <div className="min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16">
-                <Experience profileMode={profileMode} />
+                <Experience />
               </div>
             )}
 
             {activeTab === 'projects' && (
-              <div
-                className={
-                  profileMode === 'professional'
-                    ? 'min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16'
-                    : 'h-[calc(100vh-5.5rem)] overflow-hidden'
-                }
-              >
-                {profileMode === 'professional' ? <Projects /> : <Thoughts />}
+              <div className="min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16">
+                <Projects />
               </div>
             )}
 
             {activeTab === 'contact' && (
               <div className="h-[calc(100vh-5.5rem)] overflow-hidden">
-                <Contact profileMode={profileMode} />
+                <Contact />
               </div>
             )}
           </motion.div>

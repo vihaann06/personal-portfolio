@@ -18,10 +18,6 @@ type ExperienceEntry = {
   logoFit?: 'cover' | 'contain';
 };
 
-interface ExperienceProps {
-  profileMode: 'personal' | 'professional';
-}
-
 function CompanyLogo({
   company,
   logoSrc,
@@ -254,7 +250,7 @@ function ExperienceTimelineRow({
   );
 }
 
-const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
+const Experience: React.FC = () => {
   const reducedMotion = useReducedMotion() === true;
   const hoverCapable = usePrefersHover();
 
@@ -268,7 +264,7 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
   const { scrollYProgress: pageProgress } = useScroll();
   const watermarkY = useTransform(pageProgress, [0, 1], [0, 140]);
 
-  const professionalExperiences: ExperienceEntry[] = [
+  const experiences: ExperienceEntry[] = [
     {
       title: 'Software Development Engineer Intern',
       company: 'Amazon Web Services',
@@ -328,68 +324,6 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
     }
   ];
 
-  const personalExperiences: ExperienceEntry[] = [
-    {
-      title: 'Software Development Engineer Intern',
-      company: 'Amazon Web Services',
-      location: 'New York City, NY',
-      period: 'May 2026 - Present',
-      logoSrc: '/Amazon_Web_Services_Logo.svg.png',
-      logoClassName: 'h-8 w-[3.25rem] sm:h-9 sm:w-[3.75rem]',
-      logoFit: 'contain',
-      description: [
-        'My first taste of building AI for hyperscale systems.',
-      ],
-      technologies: ['Java', 'Context Engineering', 'AWS Lambda'],
-    },
-    {
-      title: 'Founding Software Engineer',
-      company: 'Stealth Startup',
-      location: 'Remote',
-      period: 'Nov 2025 - Jan 2026',
-      logoSrc: '/stealth-startup.png',
-      description: [
-        'Built for an interesting problem space with a user base that I had little experience with.',
-      ],
-      technologies: ['Node.js', 'Supabase (RLS)', 'ElevenLabs'],
-    },
-    {
-      title: 'Software Engineering Intern',
-      company: 'Miami International Holdings',
-      location: 'Princeton, NJ',
-      period: 'Jun 2025 - Aug 2025',
-      logoSrc: '/MIAX.png',
-      description: [
-        'Learnt how to ship technology for scale in a regulated environment.',
-      ],
-      technologies: ['Java', 'Spring Kafka', 'Kubernetes', 'Jenkins'],
-    },
-    {
-      title: 'Founding Software Engineer',
-      company: 'As1 Social',
-      location: 'Remote',
-      period: 'Mar 2025 - May 2025',
-      logoSrc: '/as1-social.png',
-      description: [
-        'Fast product cycles in a small team with high ownership and direct user feedback.',
-      ],
-      technologies: ['React Native', 'PostgreSQL', 'Tailwind CSS', 'Git'],
-    },
-    {
-      title: 'Software Engineering Intern',
-      company: 'Avalon Infosys',
-      location: 'Delhi, India',
-      period: 'Jun 2024 - Aug 2024',
-      logoSrc: '/avalon-infosys.png',
-      description: [
-        'Introduced me to the world of mobile development and the challenges of building for a global audience.',
-      ],
-      technologies: ['Flutter', 'Firebase', 'Dart'],
-    },
-  ];
-
-  const experiences = profileMode === 'professional' ? professionalExperiences : personalExperiences;
-
   return (
     <section id="experience" className="relative min-h-screen pt-10 pb-16">
       {/* Giant outlined watermark with scroll parallax */}
@@ -418,17 +352,8 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
               className="h-px w-full origin-left bg-black/10"
             />
             <h2 className="text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
-              {profileMode === 'professional' ? (
-                <>
-                  Places where I learned to ship{' '}
-                  <span className="font-serif italic font-normal">clearly</span> under pressure.
-                </>
-              ) : (
-                <>
-                  Moments that <span className="font-serif italic font-normal">changed</span> how I
-                  think and build.
-                </>
-              )}
+              Places where I learned to ship{' '}
+              <span className="font-serif italic font-normal">clearly</span> under pressure.
             </h2>
           </div>
         </motion.div>
@@ -457,27 +382,25 @@ const Experience: React.FC<ExperienceProps> = ({ profileMode }) => {
           </ol>
         </div>
 
-        {profileMode === 'professional' && (
-          <motion.div
-            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5, ease: easeOut }}
-            className="mt-4 flex justify-center md:mt-8"
-          >
-            <Magnetic strength={0.2}>
-              <a
-                href="/Resume-Final-Vihaan-Gupta.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40"
-              >
-                View résumé
-                <ArrowUpRight size={16} />
-              </a>
-            </Magnetic>
-          </motion.div>
-        )}
+        <motion.div
+          initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5, ease: easeOut }}
+          className="mt-4 flex justify-center md:mt-8"
+        >
+          <Magnetic strength={0.2}>
+            <a
+              href="/Resume-Final-Vihaan-Gupta.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40"
+            >
+              View résumé
+              <ArrowUpRight size={16} />
+            </a>
+          </Magnetic>
+        </motion.div>
       </div>
     </section>
   );
