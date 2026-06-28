@@ -5,11 +5,13 @@ import DesktopIcon from './DesktopIcon';
 import WindowFrame from './WindowFrame';
 import TerminalWindow from './TerminalWindow';
 import FinderWindow from './FinderWindow';
+import SpotifyWindow from './SpotifyWindow';
 import { DesktopWindow, FOLDERS, WindowKind } from './types';
 
 const WINDOW_SIZES: Record<WindowKind, { width: number; height: number }> = {
   finder: { width: 660, height: 440 },
   terminal: { width: 640, height: 400 },
+  spotify: { width: 680, height: 360 },
 };
 
 
@@ -26,6 +28,7 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [minimizedIds, setMinimizedIds] = useState<string[]>([]);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+  const [spotifyFetchKey, setSpotifyFetchKey] = useState(0);
 
   const focusWindow = useCallback((id: string) => {
     setFocusedId(id);
@@ -71,11 +74,31 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
 
   const openTerminal = () => openWindow('terminal', 'terminal', 'vihaan — -zsh — 80×24');
 
+  const openSpotify = () => {
+    const id = 'spotify';
+    setSpotifyFetchKey((key) => key + 1);
+
+    if (windows.some((w) => w.id === id)) {
+      if (minimizedIds.includes(id)) restoreWindow(id);
+      else focusWindow(id);
+      return;
+    }
+
+    openWindow(id, 'spotify', "Vihaan's Recently Played");
+  };
+
+  const windowVariant = (kind: WindowKind): 'light' | 'terminal' | 'spotify' => {
+    if (kind === 'terminal') return 'terminal';
+    if (kind === 'spotify') return 'spotify';
+    return 'light';
+  };
+
   return (
     <div
       className="desktop-root fixed inset-0 overflow-hidden select-none bg-cover bg-center"
       style={{ backgroundImage: 'url("/27-Golden-Gate.png")' }}
-      onMouseDown={() => {
+      onMouseDown={(event) => {
+        if (event.target !== event.currentTarget) return;
         setSelectedIcon(null);
         setFocusedId(null);
       }}
@@ -105,7 +128,7 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
               isFocused={focusedId === win.id}
               width={WINDOW_SIZES[win.kind].width}
               height={WINDOW_SIZES[win.kind].height}
-              variant={win.kind === 'terminal' ? 'terminal' : 'light'}
+              variant={windowVariant(win.kind)}
               minimized={minimizedIds.includes(win.id)}
               constraintsRef={constraintsRef}
               onClose={() => closeWindow(win.id)}
@@ -114,6 +137,8 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
             >
               {win.kind === 'terminal' ? (
                 <TerminalWindow />
+              ) : win.kind === 'spotify' ? (
+                <SpotifyWindow key={spotifyFetchKey} />
               ) : (
                 <FinderWindow folderId={win.folderId} />
               )}
@@ -125,6 +150,8 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
       <Dock
         onOpenFinder={() => openFolder('home', 'Finder')}
         onOpenTerminal={openTerminal}
+        onOpenSpotify={openSpotify}
+        spotifyActive={windows.some((w) => w.id === 'spotify')}
         onOpenPortfolio={onOpenPortfolio}
         minimized={windows.filter((w) => minimizedIds.includes(w.id))}
         onRestore={restoreWindow}

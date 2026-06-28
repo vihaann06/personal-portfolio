@@ -1,4 +1,4 @@
-export type WindowKind = 'finder' | 'terminal';
+export type WindowKind = 'finder' | 'terminal' | 'spotify';
 
 export interface DesktopWindow {
   /** Stable id. Folder windows reuse `finder-<folderId>`; the terminal is a singleton. */

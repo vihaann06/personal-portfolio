@@ -9,7 +9,7 @@ interface WindowFrameProps {
   isFocused: boolean;
   width: number;
   height: number;
-  variant?: 'light' | 'terminal';
+  variant?: 'light' | 'terminal' | 'spotify';
   minimized: boolean;
   constraintsRef: React.RefObject<HTMLDivElement>;
   onClose: () => void;
@@ -48,7 +48,7 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
   children,
 }) => {
   const dragControls = useDragControls();
-  const isTerminal = variant === 'terminal';
+  const isDark = variant === 'terminal' || variant === 'spotify';
 
   return (
     <motion.div
@@ -77,7 +77,7 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
         pointerEvents: minimized ? 'none' : 'auto',
       }}
       className={`flex flex-col overflow-hidden rounded-xl backdrop-blur-2xl ${
-        isTerminal ? 'bg-[#1b1b1d]/95' : 'bg-[#ececec]/95'
+        isDark ? 'bg-[#1b1b1d]/95' : 'bg-[#ececec]/95'
       } ${
         isFocused
           ? 'border border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.45)]'
@@ -88,7 +88,7 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
         onPointerDown={(event) => dragControls.start(event)}
         onDoubleClick={() => undefined}
         className={`flex h-9 shrink-0 cursor-default select-none items-center px-3.5 ${
-          isTerminal ? 'bg-[#2b2b2d]/95' : 'bg-[#e2e2e2]/95'
+          isDark ? 'bg-[#2b2b2d]/95' : 'bg-[#e2e2e2]/95'
         }`}
       >
         <div className="group/lights flex items-center gap-2">
@@ -113,14 +113,16 @@ const WindowFrame: React.FC<WindowFrameProps> = ({
 
         <span
           className={`mx-auto pr-[52px] text-[13px] font-medium ${
-            isTerminal ? 'text-white/65' : 'text-black/65'
+            isDark ? 'text-white/65' : 'text-black/65'
           }`}
         >
           {title}
         </span>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-auto">{children}</div>
+      <div className={`min-h-0 flex-1 ${variant === 'spotify' ? 'overflow-hidden' : 'overflow-auto'}`}>
+        {children}
+      </div>
     </motion.div>
   );
 };
