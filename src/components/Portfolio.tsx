@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import Navigation from './Navigation';
 import Hero from './Hero';
@@ -65,12 +65,13 @@ const WindowChrome: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
 const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
   const [activeTab, setActiveTab] = useState<'home' | 'experience' | 'projects' | 'contact'>('home');
   const reducedMotion = useReducedMotion() === true;
+  const scrollRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({ container: scrollRef });
   const progress = useSpring(scrollYProgress, { stiffness: 150, damping: 28, mass: 0.4 });
 
   return (
-    <div className="relative h-full overflow-hidden bg-[#f8f7f3] text-black">
+    <div className="relative flex h-full flex-col overflow-hidden bg-[#f8f7f3] text-black">
       <Intro />
       <WindowChrome onClose={onClose} onMinimize={onMinimize} />
 
@@ -100,8 +101,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
 
       <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <main className="relative">
-        <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0 })}>
+      <main ref={scrollRef} className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain">
+        <AnimatePresence
+          mode="wait"
+          onExitComplete={() => scrollRef.current?.scrollTo({ top: 0 })}
+        >
           <motion.div
             key={activeTab}
             initial={reducedMotion ? false : { opacity: 0, y: 24, filter: 'blur(8px)' }}
@@ -120,14 +124,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
             )}
 
             {activeTab === 'experience' && (
-              <div className="min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16">
-                <Experience />
+              <div className="pb-16">
+                <Experience scrollContainerRef={scrollRef} />
               </div>
             )}
 
             {activeTab === 'projects' && (
-              <div className="min-h-[calc(100vh-5.5rem)] overflow-y-auto pb-16">
-                <Projects />
+              <div className="pb-16">
+                <Projects scrollContainerRef={scrollRef} />
               </div>
             )}
 

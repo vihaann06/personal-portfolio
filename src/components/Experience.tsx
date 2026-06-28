@@ -18,6 +18,10 @@ type ExperienceEntry = {
   logoFit?: 'cover' | 'contain';
 };
 
+interface ExperienceProps {
+  scrollContainerRef?: React.RefObject<HTMLElement>;
+}
+
 function CompanyLogo({
   company,
   logoSrc,
@@ -250,18 +254,19 @@ function ExperienceTimelineRow({
   );
 }
 
-const Experience: React.FC = () => {
+const Experience: React.FC<ExperienceProps> = ({ scrollContainerRef }) => {
   const reducedMotion = useReducedMotion() === true;
   const hoverCapable = usePrefersHover();
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: timelineRef,
+    container: scrollContainerRef,
     offset: ['start 0.85', 'end 0.45'],
   });
   const railProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 26, mass: 0.6 });
 
-  const { scrollYProgress: pageProgress } = useScroll();
+  const { scrollYProgress: pageProgress } = useScroll({ container: scrollContainerRef });
   const watermarkY = useTransform(pageProgress, [0, 1], [0, 140]);
 
   const experiences: ExperienceEntry[] = [

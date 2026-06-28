@@ -11,10 +11,14 @@ const trackSpotlight = (e: React.MouseEvent<HTMLElement>) => {
   e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
 };
 
-const Projects: React.FC = () => {
+interface ProjectsProps {
+  scrollContainerRef?: React.RefObject<HTMLElement>;
+}
+
+const Projects: React.FC<ProjectsProps> = ({ scrollContainerRef }) => {
   const reducedMotion = useReducedMotion() === true;
 
-  const { scrollYProgress: pageProgress } = useScroll();
+  const { scrollYProgress: pageProgress } = useScroll({ container: scrollContainerRef });
   const watermarkY = useTransform(pageProgress, [0, 1], [0, 140]);
 
   const projects = [
