@@ -167,7 +167,15 @@ export async function getSpotifyTrack(): Promise<SpotifyTrackPayload> {
   const refreshToken = readEnv('SPOTIFY_REFRESH_TOKEN');
 
   if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error('Spotify credentials are not configured');
+    const missing = [
+      !clientId && 'SPOTIFY_CLIENT_ID',
+      !clientSecret && 'SPOTIFY_CLIENT_SECRET',
+      !refreshToken && 'SPOTIFY_REFRESH_TOKEN',
+    ].filter(Boolean);
+    throw new Error(
+      `Spotify credentials are not configured (missing: ${missing.join(', ')}). ` +
+        'Add them to your local .env for dev, or Netlify → Site configuration → Environment variables for production, then redeploy.',
+    );
   }
 
   const accessToken = await exchangeRefreshToken(clientId, clientSecret, refreshToken);

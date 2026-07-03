@@ -21,8 +21,9 @@ const SIDEBAR: { label: string; path: string[]; home?: boolean }[] = [
   { label: 'Papers', path: ['Papers'] },
 ];
 
-/** Links without a file extension behave like folders (e.g. project repos). */
-const isFolderLink = (node: VNode) => node.type === 'link' && !node.name.includes('.');
+/** Project repos open as folders; external book links open as files. */
+const isFolderLink = (node: VNode) =>
+  node.type === 'link' && (node.opensAs ?? 'folder') === 'folder';
 
 const fileIconSrc = (name: string) => {
   const ext = name.includes('.') ? name.split('.').pop()!.toLowerCase() : '';

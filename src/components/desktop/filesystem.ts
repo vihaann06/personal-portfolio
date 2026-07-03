@@ -1,9 +1,14 @@
+import {
+  CS_BOOK_NODES,
+  PHILOSOPHY_BOOK_NODES,
+  PRODUCTIVITY_BOOK_NODES,
+} from './books';
 import { PROJECTS } from './projects';
 
 export type VNode =
   | { type: 'dir'; name: string; children: VNode[] }
   | { type: 'file'; name: string; content: string }
-  | { type: 'link'; name: string; url: string };
+  | { type: 'link'; name: string; url: string; opensAs?: 'file' | 'folder' };
 
 const ABOUT = `Vihaan Gupta — builder @ Harvard studying CS + Philosophy.
 
@@ -42,9 +47,9 @@ export const ROOT: VNode = {
       type: 'dir',
       name: 'My Books',
       children: [
-        { type: 'dir', name: 'Computer Science', children: [] },
-        { type: 'dir', name: 'Philosophy', children: [] },
-        { type: 'dir', name: 'Productivity', children: [] },
+        { type: 'dir', name: 'Computer Science', children: CS_BOOK_NODES },
+        { type: 'dir', name: 'Philosophy', children: PHILOSOPHY_BOOK_NODES },
+        { type: 'dir', name: 'Productivity', children: PRODUCTIVITY_BOOK_NODES },
       ],
     },
     {
