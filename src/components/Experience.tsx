@@ -395,7 +395,7 @@ const Experience: React.FC<ExperienceProps> = ({ scrollContainerRef }) => {
         >
           <Magnetic strength={0.2}>
             <a
-              href="/Resume-Final-Vihaan-Gupta.pdf"
+              href="/Final_Resume_Vihaan_Gupta (1).pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-black/15 rounded-md px-8 py-3 text-xs font-medium tracking-[0.35em] uppercase transition-all duration-300 ease-out hover:border-black/40"
