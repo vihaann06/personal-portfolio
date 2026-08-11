@@ -47,7 +47,7 @@ const Contact: React.FC = () => {
           className="group mt-8 flex items-end justify-between gap-6"
         >
           <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-[1.02]">
-            Let&apos;s <span className="font-serif italic font-normal">talk</span>.
+            Get in touch
           </h2>
           <Magnetic strength={0.35}>
             <span className="flex h-14 w-14 sm:h-20 sm:w-20 items-center justify-center rounded-full border border-black/20 text-black transition-colors duration-300 group-hover:bg-black group-hover:text-[#f8f7f3]">

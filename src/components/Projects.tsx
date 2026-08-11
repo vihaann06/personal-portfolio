@@ -131,8 +131,7 @@ const Projects: React.FC<ProjectsProps> = ({ scrollContainerRef }) => {
               className="h-px w-full origin-left bg-black/10"
             />
             <h2 className="text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
-              Experiments, <span className="font-serif italic font-normal">shipped products</span>,
-              and research tools.
+              Selected projects
             </h2>
           </div>
         </motion.div>

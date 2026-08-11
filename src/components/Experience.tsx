@@ -357,8 +357,7 @@ const Experience: React.FC<ExperienceProps> = ({ scrollContainerRef }) => {
               className="h-px w-full origin-left bg-black/10"
             />
             <h2 className="text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
-              Places where I learned to ship{' '}
-              <span className="font-serif italic font-normal">clearly</span> under pressure.
+              Where I&apos;ve worked
             </h2>
           </div>
         </motion.div>

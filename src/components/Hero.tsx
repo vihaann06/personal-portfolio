@@ -1,14 +1,9 @@
 import React from 'react';
-import { Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import Magnetic from './Magnetic';
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
-
-const HEADLINE = 'Building meaningful systems for messy, human contexts.';
-
-/** Words rendered in italic serif for editorial contrast. */
-const ACCENT_WORDS = new Set(['meaningful', 'human']);
 
 const Hero: React.FC = () => {
   const reducedMotion = useReducedMotion() === true;
@@ -18,35 +13,22 @@ const Hero: React.FC = () => {
       <section id="home" className="h-full flex items-center relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 w-full">
           <div className="flex flex-col lg:flex-row items-center justify-center gap-8 text-center lg:text-left lg:-translate-y-2 lg:translate-x-2">
-            <div className="space-y-4 max-w-xl">
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-semibold leading-[1.06] tracking-tight">
-                {HEADLINE.split(' ').map((word, i, words) => {
-                  const isAccent = ACCENT_WORDS.has(word.replace(/[^a-zA-Z]/g, '').toLowerCase());
-                  return (
-                    <span
-                      key={`${word}-${i}`}
-                      className="inline-block overflow-hidden align-bottom pb-[0.12em] -mb-[0.12em]"
-                    >
-                      <motion.span
-                        className={`inline-block ${isAccent ? 'font-serif italic font-normal' : ''}`}
-                        initial={reducedMotion ? false : { y: '110%' }}
-                        animate={reducedMotion ? undefined : { y: '0%' }}
-                        transition={{ duration: 0.75, ease: easeOut, delay: 0.05 * i }}
-                      >
-                        {word}
-                        {i < words.length - 1 ? '\u00A0' : ''}
-                      </motion.span>
-                    </span>
-                  );
-                })}
-              </h1>
+            <div className="space-y-4 max-w-md">
+              <motion.h1
+                initial={reducedMotion ? false : { opacity: 0, y: 14 }}
+                animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: easeOut, delay: 0.05 }}
+                className="text-4xl sm:text-5xl lg:text-[3.4rem] font-semibold leading-[1.06] tracking-tight"
+              >
+                Hey, I&apos;m Vihaan
+              </motion.h1>
               <motion.p
                 initial={reducedMotion ? false : { opacity: 0, y: 14 }}
                 animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: easeOut, delay: 0.4 }}
+                transition={{ duration: 0.6, ease: easeOut, delay: 0.2 }}
                 className="text-sm md:text-base text-black/70 leading-relaxed"
               >
-                Hey! I&apos;m Vihaan, a builder @ Harvard studying CS and Philosophy. Currently, I'm working as an HCI researcher @ Variation Lab and as a Software Engineering Intern at Amazon Web Services (AWS). Feel free to reach out if you'd like to chat!
+                I&apos;m a builder @ Harvard studying CS and Philosophy. Currently, I&apos;m working as an HCI researcher @ Variation Lab and as a Software Engineering Intern at Amazon Web Services (AWS). Feel free to reach out if you&apos;d like to chat!
               </motion.p>
               <motion.div
                 initial={reducedMotion ? false : { opacity: 0, y: 14 }}
@@ -56,6 +38,7 @@ const Hero: React.FC = () => {
               >
               {[
                   { icon: Linkedin, href: 'https://www.linkedin.com/in/vihaan-gupta-1595332a7', text: 'LinkedIn' },
+                  { icon: Github, href: 'https://github.com/vihaann06', text: 'GitHub' },
                   { icon: Mail, href: 'mailto:vihaangupta@college.harvard.edu', text: 'Email' }
                 ].map(({ icon: Icon, href, text }) => (
                   <Magnetic key={text} strength={0.2}>
