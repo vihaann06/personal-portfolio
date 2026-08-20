@@ -28,7 +28,16 @@ const Hero: React.FC = () => {
                 transition={{ duration: 0.6, ease: easeOut, delay: 0.2 }}
                 className="text-sm md:text-base text-black/70 leading-relaxed"
               >
-                I&apos;m a builder @ Harvard studying CS and Philosophy. Currently, I&apos;m working as an HCI researcher @ Variation Lab and as a Software Engineering Intern at Amazon Web Services (AWS). Feel free to reach out if you&apos;d like to chat!
+                I&apos;m a builder @ Harvard studying CS and Philosophy. I love studying about the intersection of technology and society. Currently, I&apos;m working as an HCI researcher @{' '}
+                <a
+                  href="https://glassmanlab.seas.harvard.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="u-underline text-black/80 hover:text-black transition-colors"
+                >
+                  Variation Lab
+                </a>{' '}
+                and as a Software Engineering Intern at Amazon Web Services (AWS). Feel free to reach out if you&apos;d like to chat!
               </motion.p>
               <motion.div
                 initial={reducedMotion ? false : { opacity: 0, y: 14 }}
@@ -75,7 +84,6 @@ const Hero: React.FC = () => {
             </motion.div>
           </div>
       </div>
-
     </section>
     </>
   );
