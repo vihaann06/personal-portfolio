@@ -6,12 +6,14 @@ import WindowFrame from './WindowFrame';
 import TerminalWindow from './TerminalWindow';
 import FinderWindow from './FinderWindow';
 import SpotifyWindow from './SpotifyWindow';
+import RemindersWindow from './RemindersWindow';
 import { DesktopWindow, FOLDERS, WindowKind } from './types';
 
 const WINDOW_SIZES: Record<WindowKind, { width: number; height: number }> = {
   finder: { width: 660, height: 440 },
   terminal: { width: 640, height: 400 },
   spotify: { width: 680, height: 360 },
+  reminders: { width: 420, height: 440 },
 };
 
 
@@ -87,6 +89,18 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
     openWindow(id, 'spotify', "Vihaan's Recently Played");
   };
 
+  const openReminders = () => {
+    const id = 'reminders';
+
+    if (windows.some((w) => w.id === id)) {
+      if (minimizedIds.includes(id)) restoreWindow(id);
+      else focusWindow(id);
+      return;
+    }
+
+    openWindow(id, 'reminders', 'Reminders');
+  };
+
   const windowVariant = (kind: WindowKind): 'light' | 'terminal' | 'spotify' => {
     if (kind === 'terminal') return 'terminal';
     if (kind === 'spotify') return 'spotify';
@@ -139,6 +153,8 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
                 <TerminalWindow />
               ) : win.kind === 'spotify' ? (
                 <SpotifyWindow key={spotifyFetchKey} />
+              ) : win.kind === 'reminders' ? (
+                <RemindersWindow />
               ) : (
                 <FinderWindow folderId={win.folderId} />
               )}
@@ -152,6 +168,8 @@ const Desktop: React.FC<DesktopProps> = ({ onOpenPortfolio }) => {
         onOpenTerminal={openTerminal}
         onOpenSpotify={openSpotify}
         spotifyActive={windows.some((w) => w.id === 'spotify')}
+        onOpenReminders={openReminders}
+        remindersActive={windows.some((w) => w.id === 'reminders')}
         onOpenPortfolio={onOpenPortfolio}
         minimized={windows.filter((w) => minimizedIds.includes(w.id))}
         onRestore={restoreWindow}

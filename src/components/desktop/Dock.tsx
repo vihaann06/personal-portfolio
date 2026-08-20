@@ -7,6 +7,8 @@ interface DockProps {
   onOpenTerminal: () => void;
   onOpenSpotify: () => void;
   spotifyActive: boolean;
+  onOpenReminders: () => void;
+  remindersActive: boolean;
   onOpenPortfolio: () => void;
   minimized: DesktopWindow[];
   onRestore: (id: string) => void;
@@ -85,6 +87,8 @@ const Dock: React.FC<DockProps> = ({
   onOpenTerminal,
   onOpenSpotify,
   spotifyActive,
+  onOpenReminders,
+  remindersActive,
   onOpenPortfolio,
   minimized,
   onRestore,
@@ -92,6 +96,7 @@ const Dock: React.FC<DockProps> = ({
   const onAppClick: Record<string, (() => void) | undefined> = {
     finder: onOpenFinder,
     spotify: onOpenSpotify,
+    reminders: onOpenReminders,
     terminal: onOpenTerminal,
   };
 
@@ -110,7 +115,13 @@ const Dock: React.FC<DockProps> = ({
             src={app.src}
             href={app.href}
             onClick={onAppClick[app.id]}
-            showIndicator={app.id === 'spotify' ? spotifyActive : undefined}
+            showIndicator={
+              app.id === 'spotify'
+                ? spotifyActive
+                : app.id === 'reminders'
+                  ? remindersActive
+                  : undefined
+            }
           />
         ))}
 
@@ -126,7 +137,9 @@ const Dock: React.FC<DockProps> = ({
                     ? '/terminal-icon.png'
                     : win.kind === 'spotify'
                       ? '/spotify-icon.png'
-                      : '/finder-icon.png'
+                      : win.kind === 'reminders'
+                        ? '/reminders-icon.png'
+                        : '/finder-icon.png'
                 }
                 onClick={() => onRestore(win.id)}
                 showIndicator
