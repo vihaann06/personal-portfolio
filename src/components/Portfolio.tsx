@@ -5,7 +5,6 @@ import Hero from './Hero';
 import Projects from './Projects';
 import Contact from './Contact';
 import Experience from './Experience';
-import Intro from './Intro';
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
@@ -72,7 +71,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ onClose, onMinimize }) => {
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-[#f8f7f3] text-black">
-      <Intro />
       <WindowChrome onClose={onClose} onMinimize={onMinimize} />
 
       {/* Reading progress hairline */}
