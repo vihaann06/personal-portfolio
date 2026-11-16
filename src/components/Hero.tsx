@@ -37,7 +37,15 @@ const Hero: React.FC = () => {
                 >
                   Variation Lab
                 </a>{' '}
-                and as a Software Engineering Intern at Amazon Web Services (AWS). Feel free to reach out if you&apos;d like to chat!
+                and incoming Member of Technical Staff @{' '}
+                <a
+                  href="https://www.etched.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="u-underline text-black/80 hover:text-black transition-colors"
+                >
+                  Etched
+                </a>{' '}. Feel free to reach out if you&apos;d like to chat!
               </motion.p>
               <motion.div
                 initial={reducedMotion ? false : { opacity: 0, y: 14 }}
